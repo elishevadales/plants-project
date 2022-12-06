@@ -1,0 +1,66 @@
+.loginPage{
+    height: 100vh;
+}
+.form{
+    /* margin-top: 100px;
+    border: 2px solid #57b846; */
+    /* border-radius: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.formDiv{
+    padding: 20px;
+    min-height: 50vh;
+    border-right: 2px solid #57b846;
+    margin-right: 30px;
+
+}
+input{
+    width: 300px;
+}
+
+.buttonDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.icons{
+    display: flex;
+
+}
+.myIcon1{
+    color: #57b846;
+}
+.myIcon2{
+    color: #57b846;
+}
+.myIcon3{
+    color: #57b846;
+    background:
+    linear-gradient(to right, #57b846 8px, transparent 4px) 0 0,
+    linear-gradient(to right, #57b846 8px, transparent 4px) 0 100%,
+    linear-gradient(to left, #57b846 8px, transparent 4px) 100% 0,
+    linear-gradient(to left, #57b846 8px, transparent 4px) 100% 100%,
+    linear-gradient(to bottom, #57b846 8px, transparent 4px) 0 0,
+    linear-gradient(to bottom, #57b846 8px, transparent 4px) 100% 0,
+    linear-gradient(to top, #57b846 8px, transparent 4px) 0 100%,
+    linear-gradient(to top, #57b846 8px, transparent 4px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    border-radius: 15px;
+
+}
+.div{
+    text-align: center;
+    /* padding: 20px; */
+    margin: 20px;
+    margin-top: 90px;
+}
+
+.info{
+    margin-top: 30px;
+    text-align: center;
+}

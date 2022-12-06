@@ -1,0 +1,19 @@
+.header{
+    background: #efefef;
+    color: white ;
+    display: flex;
+    min-height: 80px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+.header h1{
+    color: #57b846;
+}
+.header span{
+    color: black;
+}
+
