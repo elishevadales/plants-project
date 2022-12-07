@@ -1,0 +1,10 @@
+.form{
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+
+}
+Button{
+    display: flex;
+    justify-content: center;
+}

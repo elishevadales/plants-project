@@ -1,14 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
-import {useForm} from "react-hook-form"
+import { Button, Container, Box } from '@mui/material';
+import { useForm } from "react-hook-form"
 import { doApiMethod } from '../../services/apiService';
 import { API_URL, doApiGet } from '../../services/apiService';
+import styles from './css/myInfo.module.css'
 
 const MyInfo = () => {
 
   const [ar, setAr] = useState([]);
-  const {register,getValues, handleSubmit, formState:{errors}} = useForm();
+  const { register, getValues, handleSubmit, formState: { errors } } = useForm();
 
   console.log(ar)
 
@@ -36,6 +37,7 @@ const MyInfo = () => {
     let url = API_URL + "/users/changeMyInfo"
     try {
       let resp = await doApiMethod(url, "PUT", bodyData);
+      alert("changes saved")
 
     }
     catch (err) {
@@ -52,21 +54,25 @@ const MyInfo = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSub)}>
+    <Container >
+      <form onSubmit={handleSubmit(onSub)} className={styles.form}>
         {ar.map((item, i) => {
           return (
             <div key={item._id}>
               <label>Name:</label><br />
               <input {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={item.name}></input><br /><br />
               <label>Email:</label><br />
-              <input disabled = {item.email}></input><br /><br />
+              <input disabled={item.email} defaultValue={item.email}></input><br /><br />
               <label>Date-Created</label><br />
-              <input disabled = {item.date_created}></input><br /><br />
+              <input disabled={item.date_created} defaultValue={item.date_created}></input><br /><br />
               <label>Profile image</label><br />
               <input {...register("img_url")} defaultValue={item.img_url}></input><br />
-              {item.active? <p>active acount</p>:<p>not-active acount</p>}
-              <Button type="submit">update</Button>
+              {item.active ? <p style={{ color: "green" ,textAlign:"center"}}>Your account is active</p> : <p style={{ color: "white",background:"red" ,textAlign:"center"}}>Your account is blocked</p>}
+
+              <Box textAlign='center'>
+                <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white", justifyContent: "center" }} display="flex" justifyContent="center" type="submit">update</Button>
+
+              </Box>
 
               <p></p>
             </div>
@@ -75,7 +81,7 @@ const MyInfo = () => {
         })}
 
       </form>
-    </div>
+    </Container>
   )
 }
 
