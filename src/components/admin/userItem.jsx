@@ -1,7 +1,7 @@
 import React from 'react'
 import { API_URL } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
-import { Button } from '@mui/material';
+import { Button, Modal } from '@mui/material';
 
 const UserItem = (props) => {
     let item = props.item;
@@ -52,6 +52,31 @@ const UserItem = (props) => {
         }
     }
 
+    const onXClick = async() => {
+        
+        
+        if(window.confirm("are you sure you want to delete "+  item.name + "'s acount?")){
+    
+            
+
+            try {
+                let url = API_URL + "/users/" + item._id;
+                let resp = await doApiMethod(url, "DELETE");
+                console.log(resp.data);
+                if (resp.data.deletedCount == 1) {
+                    props.doApi()
+                }
+            }
+            catch (err) {
+                console.log(err.response);
+                alert("There is a problem, or you are trying to delete superAdmin");
+            }
+
+        }
+        
+
+    }
+
     return (
         <tr>
             <td>{props.index + 1}</td>
@@ -62,11 +87,11 @@ const UserItem = (props) => {
             <td>
                 {
                     item.role == 'admin' ?
-                        <Button style={{ background: "rgb(170, 249, 255)", color: "black",border:"1px solid black" }} onClick={onRoleClick}>
+                        <Button style={{ background: "rgb(170, 249, 255)", color: "black", border: "1px solid black" }} onClick={onRoleClick}>
                             {item.role}
                         </Button>
                         :
-                        <Button style={{ background: "white", color: "black",border:"1px solid black" }} onClick={onRoleClick}>
+                        <Button style={{ background: "white", color: "black", border: "1px solid black" }} onClick={onRoleClick}>
                             {item.role}
                         </Button>
                 }
@@ -82,7 +107,9 @@ const UserItem = (props) => {
                         {String(item.active)}
                     </Button>
                 }
-
+            </td>
+            <td>
+                <Button style={{background:"red",color:"white"}} onClick={onXClick}>X</Button>
             </td>
         </tr>
     )

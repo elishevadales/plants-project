@@ -22,7 +22,6 @@ const HeaderAdmin = () => {
     <div className={styles.header}>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GiCottonFlower style={{ color: "#57b846", fontSize: "40px", marginRight: "10px" }} />
-        {/* <ParkTwoToneIcon style={{ color: "#57b846", fontSize: "40px",marginRight:"10px"}} /> */}
         <h1><span>EZ</span>plant</h1>
       </div>
       <nav>
@@ -38,16 +37,7 @@ const HeaderAdmin = () => {
           </li> */}
         </ul>
       </nav>
-
-      {/* <Button className='log-btn' style={{ background: "#57b846", width: "130px", height: "40px" }} variant="contained" onClick={onClick}>
-        log-out
-      </Button> */}
     </div>
-
-    // <div style={{background:"blue", color:"white"}}>
-    //   HeaderAdmin
-    //   <button onClick={onClick}>log-out</button>
-    //   </div>
   )
 }
 

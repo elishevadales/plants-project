@@ -10,6 +10,8 @@ import SignUp from './components/general/signUp';
 import LayoutUser from './components/user/layoutUser';
 import LayoutGeneral from './components/general/layoutGeneral';
 import MyInfo from './components/general/myInfo';
+import MapUser from './components/user/mapUser';
+import PlantsUser from './components/user/plantsUser';
 
 const AppRoutes = () => {
   return (
@@ -27,14 +29,14 @@ const AppRoutes = () => {
           <Route path="/admin" element={<UsersListAdmin />} />
           <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
           <Route path="/admin/myInfo" element={<MyInfo />} />
-
         </Route>
+
         {/* User */}
         <Route path="/user" element={<LayoutUser />}>
-
           <Route path="/user" element={<HomeUser />} />
+          <Route path="/user/map" element={<MapUser />} />
+          <Route path="/user/myPlants" element={<PlantsUser />} />
           <Route path="/user/myInfo" element={<MyInfo />} />
-
         </Route>
 
       </Routes>

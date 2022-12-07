@@ -43,6 +43,7 @@ const UsersListAdmin = () => {
             <th>Date-created</th>
             <th>Role</th>
             <th>Active</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
