@@ -25,6 +25,9 @@ export const doApiGet = async(_url) => {
 export const doApiMethod = async(_url,_method,_body = {}) => {
   try{
     console.log(_body)
+    if(_body.img_url == ""){
+      delete _body.img_url;
+    }
     let resp = await axios({
       url:_url,
       method:_method,

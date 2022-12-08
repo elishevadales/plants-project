@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import React from 'react'
 import { API_URL, doApiGet } from '../../services/apiService';
 import UserItem from './userItem';
+import CheckAdmin from './checkAdmin'
 import styles from './css/usersListAdmin.module.css'
 
 
@@ -31,6 +32,7 @@ const UsersListAdmin = () => {
 
   return (
     <main>
+      <CheckAdmin/>
       <Container>
       <h1 style={{textAlign:"center", color:"#57b846"}}>List of users in systems:</h1>
       <table className='table table-striped table-hover'>

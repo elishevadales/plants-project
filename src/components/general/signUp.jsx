@@ -14,11 +14,10 @@ const SignUp = () => {
   const { register, getValues, handleSubmit, formState: { errors } } = useForm();
 
   const onSub = (bodyData) => {
+    console.clear();
     delete bodyData.emailAgain;
     delete bodyData.passwordAgain;
-    // if(!bodyData.img_url){
-    //   delete bodyData.img_url;
-    // }
+
     console.log(bodyData);
     doApiForm(bodyData);
   }
@@ -71,9 +70,10 @@ const SignUp = () => {
 
         <label>Profile Image:</label>
         <input {...register("img_url")} type="text"></input>
+        {/* <input onChange={onChangeImg} {...register("img_url")} type="file" /> */}
 
         <Box textAlign='center'>
-          <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white" }}>Sign-up</Button>
+          <Button type='submit' style={{ background: "#57b846", width: "130px", height: "40px", color: "white" }}>Sign-up</Button>
         </Box>
       </form>
       <p>allready have an account? <Link to="/">log-in</Link></p>

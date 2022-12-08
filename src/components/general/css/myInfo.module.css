@@ -4,7 +4,30 @@
     justify-content: center;
 
 }
+.formDiv{
+    display: flex;
+    flex-direction: column;
+}
 Button{
     display: flex;
     justify-content: center;
+    /* align-items: center; */
+}
+.mapDiv{
+    display: flex;
+    /* align-items: center; */
+}
+.imgDiv{
+    height: 250px;
+    width: 250px;
+    margin-left: 40px;
+    margin-top: 10px;
+    background-size: cover;
+    border-radius: 10px;
+    border: 10px solid rgb(239, 239, 239);
+    /* background-image: url("https://images.pexels.com/photos/38554/girl-people-landscape-sun-38554.jpeg"); */
+}
+.delBtn{
+    cursor: pointer;
+    color: #57b846;
 }
