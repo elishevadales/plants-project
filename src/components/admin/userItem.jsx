@@ -100,11 +100,11 @@ const UserItem = (props) => {
             <td>
                 {item.active ?
                     <Button style={{ background: "green", color: "white" }} onClick={onActiveClick}>
-                        {String(item.active)}
+                        active
                     </Button>
                     :
                     <Button style={{ background: "red", color: "white" }} onClick={onActiveClick}>
-                        {String(item.active)}
+                        blocked
                     </Button>
                 }
             </td>

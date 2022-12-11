@@ -18,8 +18,8 @@ const MyInfo = () => {
     doApi();
   }, [])
 
-  const onDelImg = () => {
-    if(window.confirm("do you want to delete your profile image?")){
+  const onDelImg = async () => {
+    if (window.confirm("do you want to delete your profile image?")) {
       alert("done")
     }
   }
@@ -44,7 +44,9 @@ const MyInfo = () => {
     let url = API_URL + "/users/changeMyInfo"
     try {
       let resp = await doApiMethod(url, "PUT", bodyData);
+      console.log(bodyData)
       alert("changes saved")
+      doApi();
 
     }
     catch (err) {
@@ -64,7 +66,7 @@ const MyInfo = () => {
   }
 
   return (
-    <Container >
+    <Container className={styles.container}>
       <form onSubmit={handleSubmit(onSub)} className={styles.form}>
         {ar.map((item, i) => {
           return (
@@ -80,34 +82,36 @@ const MyInfo = () => {
                 <input disabled={item.date_created} defaultValue={item.date_created}></input>
                 <label>Profile image</label>
                 <input {...register("img_url")} defaultValue={item.img_url}></input>
-                
-                {item.active ? <p style={{ color: "green", textAlign: "center" }}>Your account is active</p> : <p style={{ color: "white", background: "red", textAlign: "center" }}>Your account is blocked</p>}
+
+                {/* {item.active ? <p style={{ color: "green", textAlign: "center" }}>Your account is active</p> : <p style={{ color: "white", background: "red", textAlign: "center" }}>Your account is blocked</p>} */}
                 <Box textAlign='center'>
-                  <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white", justifyContent: "center" }} display="flex" type="submit">update</Button>
+                  <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white", justifyContent: "center", marginTop: "20px" }} display="flex" type="submit">update</Button>
                 </Box>
               </div>
 
-
-              {
-                !item.img_url ?
-                  <div className={styles.imgDiv} style={{ backgroundImage: `url(${profile})` }}></div>
+              <div>
+                {
+                  !item.img_url ?
+                    <div className={styles.imgDiv} style={{ backgroundImage: `url(${profile})` }}></div>
                     :
                     <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url})` }}></div>
 
                 }
+
                 <p onClick={onDelImg} className={styles.delBtn}>delete image</p>
+              </div>
 
 
 
 
-                    
-                  </div>
+
+            </div>
 
 
           )
         })}
 
-            </form>
+      </form>
     </Container>
   )
 }

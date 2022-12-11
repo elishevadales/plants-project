@@ -1,5 +1,10 @@
+.container{
+    box-shadow: 20px 20px 50px grey;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+}
 .form{
-    margin-top: 70px;
     display: flex;
     justify-content: center;
 
@@ -11,11 +16,9 @@
 Button{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 .mapDiv{
     display: flex;
-    /* align-items: center; */
 }
 .imgDiv{
     height: 250px;
@@ -23,11 +26,12 @@ Button{
     margin-left: 40px;
     margin-top: 10px;
     background-size: cover;
-    border-radius: 10px;
+    border-radius:300px;
     border: 10px solid rgb(239, 239, 239);
-    /* background-image: url("https://images.pexels.com/photos/38554/girl-people-landscape-sun-38554.jpeg"); */
 }
 .delBtn{
     cursor: pointer;
     color: #57b846;
+    text-align: center;
+    margin-left: 40px;
 }

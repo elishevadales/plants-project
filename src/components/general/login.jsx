@@ -3,12 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import styles from './css/login.module.css'
 import { Container, style } from '@mui/system'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { TbFlower } from 'react-icons/tb';
-import { GiFireFlower } from 'react-icons/gi';
+import { GiFireFlower, GiCottonFlower, GiSpotedFlower } from 'react-icons/gi';
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../services/apiService';
-import { hover } from '@testing-library/user-event/dist/hover'
 // import {AppBar ,Toolbar,Typography ,Button ,IconButton} from "@mui/material"
 // import {MenuIcon} from "@mui/icons-material"
 
@@ -29,10 +28,20 @@ const Login = () => {
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
+      // delete old token
+      localStorage.removeItem(TOKEN_NAME);
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.token);
       // לשגר לעמוד של רשימת המשתמשים
-      if (resp.data.role == "admin") {
+      if (resp.data.active == false) {
+        alert("You are blocked. Please contact the site administrator")
+
+
+
+
+        nav("/")
+      }
+      else if (resp.data.role == "admin") {
         nav("/admin")
       }
       else { nav("/user") }
@@ -62,29 +71,32 @@ const Login = () => {
             {errors.password && <div style={{ color: "red" }}>Enter valid password</div>}
             <br /><br />
             <div className={styles.buttonDiv}>
-                          <Button className={styles.button} sx={{ background: "#57b846", color: "white"}} type='submit'>Log-in</Button>
+              <Button className={styles.button} sx={{ background: "#57b846", color: "white" }} type='submit'>Log-in</Button>
 
             </div>
-            <p style={{textAlign:"center"}}>you don't have an account? <Link to="/signUp">sign-up</Link></p>
+            <p style={{ textAlign: "center" }}>you don't have an account? <Link to="/signUp">sign-up</Link></p>
+
+            
+
           </div>
 
           <div className={styles.icons}>
             <div className={styles.div}>
               <FaMapMarkerAlt className={styles.myIcon1} style={{ fontSize: "150px" }} />
               <div className={styles.info}>
- Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
+                Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
               </div>
             </div>
             <div className={styles.div}>
               <TbFlower className={styles.myIcon2} style={{ fontSize: "150px" }} />
               <div className={styles.info}>
- Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
+                Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
               </div>
             </div>
             <div className={styles.div}>
-              <GiFireFlower className={styles.myIcon3} style={{ fontSize: "150px" }} />
+              <GiSpotedFlower className={styles.myIcon3} style={{ fontSize: "150px" }} />
               <div className={styles.info}>
- Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
+                Dolore nihil qui soluta consequatur, officiis doloribus dignissimos consectetur, ipsum exercitationem adipisci cum quam a.
               </div>
             </div>
           </div>

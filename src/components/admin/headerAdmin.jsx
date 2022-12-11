@@ -16,11 +16,14 @@ const HeaderAdmin = () => {
     }
 
   }
+  const onClickLogo = () =>{
+    nav("/admin/plantsList");
+  }
 
   return (
 
     <div className={styles.header}>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center",cursor:"pointer" }} onClick={onClickLogo}>
         <GiCottonFlower style={{ color: "#57b846", fontSize: "40px", marginRight: "10px" }} />
         <h1><span>EZ</span>plant</h1>
       </div>

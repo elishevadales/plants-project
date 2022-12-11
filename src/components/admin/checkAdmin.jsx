@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 // import { API_URL, doApiGet } from '../services/apiService';
 import { API_URL, doApiGet } from '../../services/apiService';
+import { TOKEN_NAME } from '../../services/apiService';
 
 export default function CheckAdminComp() {
-  
-  let nav = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
     doApi();
@@ -17,13 +17,16 @@ export default function CheckAdminComp() {
       let url = API_URL+"/users/checkToken"
       let resp = await doApiGet(url);
       if(resp.data.role != "admin"){
+        localStorage.removeItem(TOKEN_NAME);
+        nav("/");
         alert("You must be admin to be here ,try log in again");
-        nav("/admin")
+        
       }
+      
     }
     catch(err){
       alert("There problem ,try log in again");
-      nav("/admin")
+      nav("/")
     }
 
 

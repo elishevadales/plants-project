@@ -20,8 +20,8 @@ const GeneralHeader = () => {
     return (
 
         <div className={styles.header}>
-            <div style={{ display: "flex",alignItems:"center"}}>
-            <GiCottonFlower style={{ color: "#57b846", fontSize: "40px",marginRight:"10px"}}/>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <GiCottonFlower style={{ color: "#57b846", fontSize: "40px", marginRight: "10px" }} />
                 {/* <ParkTwoToneIcon style={{ color: "#57b846", fontSize: "40px",marginRight:"10px"}} /> */}
                 <h1><span>EZ</span>plant</h1>
             </div>
