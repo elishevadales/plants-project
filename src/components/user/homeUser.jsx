@@ -4,10 +4,14 @@ import PlantItem from './plantItem'
 import { useState,useEffect } from 'react';
 import { API_URL, doApiGet } from '../../services/apiService';
 import styles from "./css/homeUser.module.css";
+import btnStyles from "./css/addPlantBtn.module.css"
+import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material';
 
 
 
 const HomeUser = () => {
+  const nav = useNavigate();
 
   const [ar,setAr] = useState([]);
 
@@ -29,6 +33,10 @@ const HomeUser = () => {
 
   }
 
+  const onPlusBtn = () => {
+    nav("/user/newPlant")
+  }
+
   return (
     <Container>
       <div>
@@ -45,6 +53,10 @@ const HomeUser = () => {
             )
           })}
       </div>
+      <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
+        
+      </div>
+
 
     </Container>
 

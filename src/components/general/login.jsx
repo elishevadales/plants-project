@@ -8,6 +8,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import { TbFlower } from 'react-icons/tb';
 import { GiFireFlower, GiCottonFlower, GiSpotedFlower } from 'react-icons/gi';
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../services/apiService';
+import MapUser from '../user/mapUser'
 // import {AppBar ,Toolbar,Typography ,Button ,IconButton} from "@mui/material"
 // import {MenuIcon} from "@mui/icons-material"
 
@@ -34,7 +35,7 @@ const Login = () => {
       localStorage.setItem(TOKEN_NAME, resp.data.token);
       // לשגר לעמוד של רשימת המשתמשים
       if (resp.data.active == false) {
-        alert("You are blocked. Please contact the site administrator")
+        alert("Your account is blocked. Please contact the site administrator")
 
 
 
@@ -75,6 +76,7 @@ const Login = () => {
 
             </div>
             <p style={{ textAlign: "center" }}>you don't have an account? <Link to="/signUp">sign-up</Link></p>
+            
 
             
 

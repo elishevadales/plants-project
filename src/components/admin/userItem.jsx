@@ -2,6 +2,7 @@ import React from 'react'
 import { API_URL } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
 import { Button, Modal } from '@mui/material';
+import ConfirmButton from '../general/confirmButton';
 
 const UserItem = (props) => {
     let item = props.item;
@@ -53,12 +54,6 @@ const UserItem = (props) => {
     }
 
     const onXClick = async() => {
-        
-        
-        if(window.confirm("are you sure you want to delete "+  item.name + "'s acount?")){
-    
-            
-
             try {
                 let url = API_URL + "/users/" + item._id;
                 let resp = await doApiMethod(url, "DELETE");
@@ -71,8 +66,6 @@ const UserItem = (props) => {
                 console.log(err.response);
                 alert("There is a problem, or you are trying to delete superAdmin");
             }
-
-        }
         
 
     }
@@ -109,7 +102,13 @@ const UserItem = (props) => {
                 }
             </td>
             <td>
-                <Button style={{background:"red",color:"white"}} onClick={onXClick}>X</Button>
+                <ConfirmButton
+                    btnText="X"
+                    boxText={`are you sure you want to delete ${item.name}'s account?`}
+                    agree={onXClick}
+                    style={{ background: "red",color: "white"}}
+                />
+                {/* <Button style={{background:"red",color:"white"}} onClick={onXClick}>X</Button> */}
             </td>
         </tr>
     )

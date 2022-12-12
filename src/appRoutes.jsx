@@ -12,6 +12,7 @@ import LayoutGeneral from './components/general/layoutGeneral';
 import MyInfo from './components/general/myInfo';
 import MapUser from './components/user/mapUser';
 import PlantsUser from './components/user/plantsUser';
+import AddPlant from './components/user/addPlant';
 
 const AppRoutes = () => {
   return (
@@ -37,6 +38,7 @@ const AppRoutes = () => {
           <Route path="/user/map" element={<MapUser />} />
           <Route path="/user/myPlants" element={<PlantsUser />} />
           <Route path="/user/myInfo" element={<MyInfo />} />
+          <Route path="/user/newPlant" element={<AddPlant />} />
         </Route>
 
       </Routes>
