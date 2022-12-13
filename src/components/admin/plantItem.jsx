@@ -22,13 +22,15 @@ const PlantItem = (props) => {
     }
 
     let item = props.item;
+    console.log(item.name)
 
     return (
+        
         <tr>
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
             <td>{item.location}</td>
-            <td>{item.mapLocation}</td>
+            <td>{JSON.stringify(item.mapLocation, null, 2)}</td>
             <td>{item.img_url}</td>
             <td>{item.likes} </td>
             <td>{item.comments} </td>

@@ -20,7 +20,19 @@ const MyInfo = () => {
 
   const onDelImg = async () => {
     if (window.confirm("do you want to delete your profile image?")) {
-      alert("done")
+      let url = API_URL + "/users/changeMyInfo"
+      try {
+        // it doesn't work
+        let resp = await doApiMethod(url, "PUT", {img_url:""});
+        alert("changes saved")
+        doApi();
+  
+      }
+      catch (err) {
+  
+        console.log(err.response);
+        alert("update problem");
+      }
     }
   }
 

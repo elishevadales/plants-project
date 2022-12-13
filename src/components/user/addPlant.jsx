@@ -20,54 +20,54 @@ const AddPlant = () => {
   }
 
   const componentDidMount2 = () => {
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition( (position) => {
       console.clear()
       // console.log("Latitude is :", position.coords.latitude);
       // console.log("Longitude is :", position.coords.longitude);
       let updatePlant = { "lat": position.coords.latitude, "long": position.coords.longitude };
+      
       setPlant(plant => ({
         ...plant, ...updatePlant
       }))
       console.log(updatePlant)
       console.log(plant)
+
     });
   }
 
   return (
     <Container className={styles.container}>
-        <Box className={styles.box}>
+      <Box >
+        <div className={styles.box}>
 
-          <TextField className={styles.textField}
-            id="standard-number"
-            label="Name"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-          />
+        <TextField className={styles.textField}
+          id="standard-basic"
+          label="Plant name"
+        // variant="standard"
+        />
+        <br />
 
-          <TextField className={styles.textField}
-            id="standard-number"
-            label="Image url"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-          />
+        <TextField className={styles.textField}
+          id="standard-basic"
+          label="Image url"
+        // variant="standard"
+        />
+        <br />
 
-          <TextField className={styles.textField}
-            id="standard-number"
-            label="Number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-          />
+        <TextField className={styles.textField}
+          id="standard-basic"
+          label="Map location"
 
-        </Box>
-        <Button type='submit'></Button>
-      <button onClick={componentDidMount}>Check location access permission</button>
-      <button onClick={componentDidMount2}>Share current location</button>
+        // variant="standard"
+        />
+
+      <Button onClick={componentDidMount}>Check location access permission</Button>
+      <Button onClick={componentDidMount2}>Share current location</Button>
+      <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white" }} type='submit'>Add Plant</Button>
+        </div>
+
+      </Box>
+
     </Container>
   )
 }
