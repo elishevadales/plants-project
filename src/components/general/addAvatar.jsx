@@ -50,7 +50,7 @@ const AddAvatar = () => {
           <label>Upload file</label>
           <input ref={fileRef} type="file"  />
           <br/>
-          <button>Upload</button>
+          <button>Upload avatar</button>
         </form>
       </div>
     )
