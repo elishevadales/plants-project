@@ -32,9 +32,9 @@ const ConfirmButton = (props) => {
         {props.boxText}
       </DialogTitle>
       <DialogActions>
-        <Button  onClick={handleClose}>Disagree</Button>
+        <Button  onClick={handleClose}>No</Button>
         <Button onClick={handleClose  && props.agree} autoFocus>
-          Agree
+          Yes
         </Button>
       </DialogActions>
     </Dialog>

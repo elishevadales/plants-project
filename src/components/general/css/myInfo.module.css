@@ -1,7 +1,7 @@
 .container{
     box-shadow: 20px 20px 50px grey;
     border-radius: 20px;
-    padding: 30px;
+    padding: 80px;
     margin-top: 30px;
 }
 
@@ -21,17 +21,17 @@ Button{
     display: flex;
 }
 .imgDiv{
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
     margin-left: 40px;
     margin-top: 10px;
     background-size: cover;
     border-radius:300px;
     border: 10px solid rgb(239, 239, 239);
 }
-.delBtn{
+.editBtn{
     cursor: pointer;
     color: #57b846;
     text-align: center;
-    margin-left: 40px;
+    margin-left: 20px;
 }

@@ -1,13 +1,17 @@
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+
 import React, { useRef } from 'react'
 import { API_URL ,TOKEN_NAME} from '../../services/apiService';
 
-const AddAvatar = () => {
+const AddAvatar = (props) => {
 
     const fileRef = useRef();
+    const nav = useNavigate();
 
     const onSub = (e) => {
+      console.clear()
       e.preventDefault();
       
       doApiFileUpload();
@@ -36,6 +40,8 @@ const AddAvatar = () => {
           })
           if(resp.data.status){
             alert("file uploaded")
+            props.handleClose();
+            // props.doApi();
           }
         }
         catch (err) {
@@ -50,7 +56,7 @@ const AddAvatar = () => {
           <label>Upload file</label>
           <input ref={fileRef} type="file"  />
           <br/>
-          <button>Upload avatar</button>
+          <button>Upload</button>
         </form>
       </div>
     )

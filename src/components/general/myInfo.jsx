@@ -9,6 +9,9 @@ import profile from '../../images/profile.png'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddAvatar from './addAvatar';
+import { ModeEdit} from '@mui/icons-material';
+import { RiDeleteBinLine } from 'react-icons/ri';
+
 
 const style = {
   position: 'absolute',
@@ -29,31 +32,18 @@ const MyInfo = () => {
   const handleClose = () => setOpen(false);
 
   const [ar, setAr] = useState([]);
+
+  
   const { register, getValues, handleSubmit, formState: { errors } } = useForm();
 
   console.log(ar)
 
   useEffect(() => {
     doApi();
+    console.clear();
   }, [])
 
-  const onDelImg = async () => {
-    if (window.confirm("do you want to delete your profile image?")) {
-      let url = API_URL + "/users/changeMyInfo"
-      try {
-        // it doesn't work
-        let resp = await doApiMethod(url, "PUT", { img_url: "" });
-        alert("changes saved")
-        doApi();
 
-      }
-      catch (err) {
-
-        console.log(err.response);
-        alert("update problem");
-      }
-    }
-  }
 
   const doApi = async () => {
     let url = API_URL + "/users/myInfo";
@@ -96,6 +86,10 @@ const MyInfo = () => {
     doApiForm(bodyData);
   }
 
+  const onDelClick =() => {
+
+  }
+
   return (
     <Container >
       <div className={styles.container}>
@@ -129,20 +123,28 @@ const MyInfo = () => {
                     <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url})` }}></div>
 
                 }
+<div style={{display:"flex",justifyContent:"end"}}>
+                  <p onClick={handleOpen} className={styles.editBtn}><ModeEdit/></p>
+                  <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine/></p>
+                
+</div>
 
-                <p onClick={handleOpen} className={styles.delBtn}>Edit photo</p>
                 <Modal
                   open={open}
                   onClose={handleClose}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                  <Box sx={style}>
+
+                    <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                      Add profile photo
+                      Edit profile photo
                     </Typography>
-                    <AddAvatar />
+                    <AddAvatar handleClose={handleClose} doApi={doApi} />
                   </Box>
+
+                  
+
                 </Modal>
               </div>
             </div>
