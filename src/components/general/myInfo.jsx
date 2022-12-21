@@ -9,8 +9,8 @@ import profile from '../../images/profile.png'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddAvatar from './addAvatar';
-import { ModeEdit} from '@mui/icons-material';
-import { RiDeleteBinLine } from 'react-icons/ri';
+import { ModeEdit } from '@mui/icons-material';
+import { RiDeleteBinLine } from 'react-icons/ri'; 
 
 
 const style = {
@@ -26,21 +26,24 @@ const style = {
 };
 
 const MyInfo = () => {
+  console.clear();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [ar, setAr] = useState([]);
+  console.log(ar)
+  const [respApi, setRespApi] = useState([0]);
 
-  
+
   const { register, getValues, handleSubmit, formState: { errors } } = useForm();
 
-  console.log(ar)
+
 
   useEffect(() => {
     doApi();
-    console.clear();
+
   }, [])
 
 
@@ -71,22 +74,34 @@ const MyInfo = () => {
 
     }
     catch (err) {
-
       console.log(err.response);
       alert("update problem");
     }
   }
 
   const onSub = (bodyData) => {
-    // if(bodyData.img_url == ""){
-    //   delete bodyData.img_url
-    // }
     console.clear();
     console.log(bodyData)
     doApiForm(bodyData);
   }
 
-  const onDelClick =() => {
+  const onDelClick = async () => {
+
+    if (window.confirm("are you sure you want to delete your profile image?")) {
+
+      let url = API_URL + "/upload/avatar";
+      try {
+        let resp = await doApiMethod(url, "DELETE");
+        console.log(ar)
+        console.log(resp.data);
+        alert("profile image wad deleted")
+
+      }
+      catch (err) {
+        console.log(err);
+        alert("there problem ,try again later")
+      }
+    }
 
   }
 
@@ -116,18 +131,15 @@ const MyInfo = () => {
               </form>
 
               <div>
-                {
-                  !item.img_url ?
-                    <div className={styles.imgDiv} style={{ backgroundImage: `url(${profile})` }}></div>
-                    :
-                    <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url})` }}></div>
 
-                }
-<div style={{display:"flex",justifyContent:"end"}}>
-                  <p onClick={handleOpen} className={styles.editBtn}><ModeEdit/></p>
-                  <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine/></p>
-                
-</div>
+                <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url})` }}></div>
+
+
+                <div style={{ display: "flex", justifyContent: "end" }}>
+                  <p onClick={handleOpen} className={styles.editBtn}><ModeEdit /></p>
+                  <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine /></p>
+                  {/* <p>{respApi}</p> */}
+                </div>
 
                 <Modal
                   open={open}
@@ -136,14 +148,14 @@ const MyInfo = () => {
                   aria-describedby="modal-modal-description"
                 >
 
-                    <Box sx={style}>
+                  <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                       Edit profile photo
                     </Typography>
-                    <AddAvatar handleClose={handleClose} doApi={doApi} />
+                    <AddAvatar handleClose={handleClose} doApi={doApi} setRespApi={setRespApi} />
                   </Box>
 
-                  
+
 
                 </Modal>
               </div>

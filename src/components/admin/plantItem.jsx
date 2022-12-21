@@ -31,7 +31,7 @@ const PlantItem = (props) => {
             <td>{item.name}</td>
             <td>{item.location}</td>
             <td>{JSON.stringify(item.mapLocation, null, 2)}</td>
-            <td>{item.img_url}</td>
+            <td><img src={item.img_url} height="40" alt="pic"/></td>
             <td>{item.likes} </td>
             <td>{item.comments} </td>
             <td>{String(item.active)} </td>

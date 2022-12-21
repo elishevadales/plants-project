@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
 import React, { useRef } from 'react'
-import { API_URL ,TOKEN_NAME} from '../../services/apiService';
+import { API_URL ,TOKEN_NAME,  doApiGet} from '../../services/apiService';
 
 const AddAvatar = (props) => {
 
@@ -11,7 +11,6 @@ const AddAvatar = (props) => {
     const nav = useNavigate();
 
     const onSub = (e) => {
-      console.clear()
       e.preventDefault();
       
       doApiFileUpload();
@@ -33,6 +32,7 @@ const AddAvatar = (props) => {
         formData.append("avatar",myFile);
         let url = API_URL+"/upload/avatar/";
         try{  
+
           let resp = await axios.post(url, formData, {
             headers: {
               'x-api-key': localStorage[TOKEN_NAME]
@@ -40,7 +40,9 @@ const AddAvatar = (props) => {
           })
           if(resp.data.status){
             alert("file uploaded")
+            props.setRespApi(Date.now());
             props.handleClose();
+
             // props.doApi();
           }
         }

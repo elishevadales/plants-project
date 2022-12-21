@@ -2,6 +2,7 @@ import React from 'react'
 import CheckAdmin from './checkAdmin'
 import { useState ,useEffect} from 'react';
 import { API_URL,doApiGet } from '../../services/apiService';
+import { Container } from '@mui/material';
 import PageNav from '../general/pageNav';
 import PlantItem from './plantItem';
 import { useSearchParams } from 'react-router-dom';
@@ -34,6 +35,7 @@ const PlantsListAdmin = () => {
 
   return (
     <div>
+      <Container>
       <CheckAdmin />
 
       <h1>List of plants</h1>
@@ -62,6 +64,7 @@ const PlantsListAdmin = () => {
           })}
         </tbody>
       </table>
+      </Container>
     </div>
   )
 }
