@@ -132,7 +132,7 @@ const MyInfo = () => {
 
               <div>
 
-                <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url})` }}></div>
+                <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url_preview})` }}></div>
 
 
                 <div style={{ display: "flex", justifyContent: "end" }}>

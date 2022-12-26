@@ -3,12 +3,14 @@ import { TOKEN_NAME } from '../../services/apiService'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './css/headerAdmin.module.css'
 import { GiCottonFlower } from 'react-icons/gi';
-import { Button } from '@mui/material';
 import ConfirmButton from '../general/confirmButton';
+import CheckAdmin from './checkAdmin'
 
 const HeaderAdmin = () => {
 
   const nav = useNavigate();
+
+
 
   const onClick = () => {
     localStorage.removeItem(TOKEN_NAME);
@@ -22,6 +24,7 @@ const HeaderAdmin = () => {
   return (
 
     <div className={styles.header}>
+      
       <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={onClickLogo}>
         <GiCottonFlower style={{ color: "#57b846", fontSize: "40px", marginRight: "10px" }} />
         <h1><span>EZ</span>plant</h1>
