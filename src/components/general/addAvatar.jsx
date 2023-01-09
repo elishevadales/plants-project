@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
 import React, { useRef } from 'react'
-import { API_URL ,TOKEN_NAME,  doApiGet} from '../../services/apiService';
+import { API_URL ,TOKEN_NAME} from '../../services/apiService';
 
 const AddAvatar = (props) => {
 
@@ -16,6 +16,7 @@ const AddAvatar = (props) => {
       doApiFileUpload();
   
     }
+
   
     const doApiFileUpload = async() => {
         console.log(fileRef.current.files[0])
@@ -56,7 +57,7 @@ const AddAvatar = (props) => {
         <div>
         <form onSubmit={onSub}>
           <label>Upload file</label>
-          <input ref={fileRef} type="file"  />
+          <input ref={fileRef} type="file" accept="image/png, image/gif, image/jpeg" />
           <br/>
           <button>Upload</button>
         </form>

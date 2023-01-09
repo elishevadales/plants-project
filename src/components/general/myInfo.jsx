@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { doApiMethod } from '../../services/apiService';
 import { API_URL, doApiGet } from '../../services/apiService';
 import styles from './css/myInfo.module.css'
-import profile from '../../images/profile.png'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddAvatar from './addAvatar';
@@ -95,6 +94,9 @@ const MyInfo = () => {
         console.log(ar)
         console.log(resp.data);
         alert("profile image wad deleted")
+        doApi();
+
+
 
       }
       catch (err) {

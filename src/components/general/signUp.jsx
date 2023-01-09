@@ -43,33 +43,33 @@ const SignUp = () => {
       <form onSubmit={handleSubmit(onSub)} className={styles.form}>
 
         <label>Name:</label>
-        <input {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} type="text"></input>
+        <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} type="text"></input>
         {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
         {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
 
 
         <label>Email:</label>
-        <input {...register("email", { required: { value: true, message: 'email is requried' }, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "invalid email" } })} type="text"></input>
+        <input className="form-control" {...register("email", { required: { value: true, message: 'email is requried' }, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "invalid email" } })} type="text"></input>
         {errors.email && errors.email.type == 'required' && <small style={{ color: "red" }}>{errors?.email?.message}</small>}
         {errors.email && errors.email.type == 'pattern' && <small style={{ color: "red" }}>{errors?.email?.message}</small>}
 
         <label>Email again:</label>
-        <input {...register("emailAgain", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, validate: (value) => value === getValues("email") })} type="text"></input>
+        <input className="form-control" {...register("emailAgain", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, validate: (value) => value === getValues("email") })} type="text"></input>
         {errors.emailAgain && <small style={{ color: "red" }}>Email is not match</small>}
 
 
         <label>Password:</label>
-        <input {...register("password", { required: { value: true, message: 'password is requried' }, minLength: { value: 6, message: "name must be at least 6 characters" } })} type="password"></input>
+        <input className="form-control" {...register("password", { required: { value: true, message: 'password is requried' }, minLength: { value: 6, message: "name must be at least 6 characters" } })} type="password"></input>
         {errors.password && errors.password.type == 'required' && <small style={{ color: "red" }}>{errors?.password?.message}</small>}
         {errors.password && errors.password.type == 'minLength' && <small style={{ color: "red" }}>{errors?.password?.message}</small>}
 
         <label>Password again:</label>
-        <input {...register("passwordAgain", { required: true, minLength: 2, validate: (value) => value === getValues("password") })} type="password"></input>
+        <input className="form-control" {...register("passwordAgain", { required: true, minLength: 2, validate: (value) => value === getValues("password") })} type="password"></input>
         {errors.passwordAgain && <small style={{ color: "red" }}>Password is not match</small>}
 
 
         <label>Profile Image:</label>
-        <input {...register("img_url")} type="text"></input>
+        <input className="form-control" {...register("img_url")} type="text"></input>
         {/* <input onChange={onChangeImg} {...register("img_url")} type="file" /> */}
 
         <Box textAlign='center'>

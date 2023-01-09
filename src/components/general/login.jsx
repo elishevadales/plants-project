@@ -65,10 +65,10 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSub)} className={styles.form}>
           <div className={styles.formDiv}>
             <label>Email:</label><br />
-            <input className={styles.input}{...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} type="text"></input><br />
+            <input className="form-control" style={{width:"300px"}} {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} type="text"></input><br />
             {errors.email && <div style={{ color: "red" }}>Enter valid name</div>}
             <label>Password:</label><br />
-            <input className={styles.input} {...register("password", { required: true, minLength: 2 })} type="Password"></input>
+            <input className="form-control" style={{width:"300px"}} {...register("password", { required: true, minLength: 2 })} type="Password"></input>
             {errors.password && <div style={{ color: "red" }}>Enter valid password</div>}
             <br /><br />
             <div className={styles.buttonDiv}>
