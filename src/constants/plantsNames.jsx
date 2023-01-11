@@ -1,4 +1,4 @@
-export const options = [
+ const options = [
     {
       value: 'rakefet',
       label: 'rakefet',
@@ -52,3 +52,5 @@ export const options = [
   //sort the plants from a to z
   let sortedProducts = options.sort(
     (v1, v2) => (v1.value > v2.value) ? 1 : (v1.value < v2.value) ? -1 : 0);
+
+    export default options

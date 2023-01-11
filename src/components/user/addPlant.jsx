@@ -4,14 +4,13 @@ import styles from './css/addPlant.module.css'
 import { useForm, Controller } from "react-hook-form"
 import { useNavigate } from 'react-router-dom'
 import Select from 'react-select';
-import { options } from '../../constants/plantsNames';
 import { BsCheckLg } from 'react-icons/bs';
 import { MdAddAPhoto } from 'react-icons/md';
 import { setTranslateValue } from '@mui/material/node/Slide/Slide';
-import PlantsList from '../../constants/plantsList';
 import { API_URL, TOKEN_NAME } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
 import axios from 'axios';
+import options from '../../constants/plantsNames'
 
 
 
@@ -160,9 +159,14 @@ const AddPlant = () => {
               <select className="form-select" {...register("name")} required>
                 {/* <option value="select..." >select...</option> */}
                 <option value="">select...</option>
-                <PlantsList></PlantsList>
+                {options.map((item,i) => {
+                  return(
+                    <option value={item.value}>{item.label}</option>
+                  )
+                })}
               </select>
               <br />
+
 
               {/* location input */}
               <h4 style={{ color: "#57b846" }}>Location</h4>

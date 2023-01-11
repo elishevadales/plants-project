@@ -14,6 +14,8 @@ const HomeUser = () => {
   const nav = useNavigate();
 
   const [ar,setAr] = useState([]);
+  const [originalImage,setOriginalImage] = useState("");
+  const [previeImage,setPrevieImage] = useState("");
 
   useEffect(() => {
     
@@ -24,8 +26,10 @@ const HomeUser = () => {
     let url = API_URL+"/plants";
     try{
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      setAr(resp.data);
+      console.log(resp.data.data);
+      setAr(resp.data.data);
+      setOriginalImage(resp.data.original);
+      setPrevieImage(resp.data.preview);
     }
     catch(err){
       console.log(err);
@@ -50,7 +54,7 @@ const HomeUser = () => {
       <div className={styles.allPlants}>
       {ar.map((item,i) => {
             return(
-              <PlantItem key={item._id} doApi={doApi} index={i} item={item}/>
+              <PlantItem key={item._id} doApi={doApi} index={i} item={item} original={originalImage} preview={previeImage}/>
             )
           })}
       </div>

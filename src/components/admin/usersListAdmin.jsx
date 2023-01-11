@@ -10,6 +10,8 @@ import styles from './css/usersListAdmin.module.css'
 const UsersListAdmin = () => {
 
   const [ar,setAr] = useState([]);
+  const [originalImage,setOriginalImage] = useState("");
+  const [previeImage,setPrevieImage] = useState("");
 
   useEffect(() => {
     doApi();
@@ -19,8 +21,15 @@ const UsersListAdmin = () => {
     let url = API_URL+"/users/usersList";
     try{
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      setAr(resp.data);
+      console.log(resp.data.data);
+      setAr(resp.data.data);
+      setOriginalImage(resp.data.original);
+      setPrevieImage(resp.data.preview);
+      console.log(originalImage);
+      console.log(previeImage);
+      console.log(resp.data.original);
+      console.log(resp.data.preview);
+      console.log(resp);
     }
     catch(err){
       console.log(err);
@@ -34,6 +43,7 @@ const UsersListAdmin = () => {
     <main>
       <CheckAdmin/>
       <Container>
+        
       <h1 style={{textAlign:"center", color:"#57b846"}}>List of users in systems:</h1>
       <table className='table table-striped table-hover'>
         <thead>
@@ -51,7 +61,7 @@ const UsersListAdmin = () => {
         <tbody>
           {ar.map((item,i) => {
             return(
-              <UserItem key={item._id} doApi={doApi} index={i} item={item}/>
+              <UserItem key={item._id} doApi={doApi} index={i} item={item} original={originalImage} preview={previeImage}/>
             )
           })}
         </tbody>

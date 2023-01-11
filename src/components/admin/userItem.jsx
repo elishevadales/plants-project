@@ -72,10 +72,12 @@ const UserItem = (props) => {
 
     return (
         <tr>
+
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
             <td>{item.email}</td>
-            <td><img src={item.img_url} height="40" alt="pic"/></td>
+            {/* <td><img src={item.img_url} height="40" alt="pic"/></td> */}
+            <td><img src={props.preview+ item.img_url_preview} height="40" alt="pic"/></td>
             <td>{item.date_created}</td>
             <td>
                 {

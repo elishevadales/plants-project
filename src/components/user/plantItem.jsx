@@ -17,8 +17,7 @@ const PlantItem = (props) => {
   }
 
   return (
-    <div className={styles.plantItem} style={{ backgroundImage: `url(${item.img_url})` }} onClick={onClickItem}>
-      {/* <img src={item.img_url}/> */}
+    <div className={styles.plantItem} style={{ backgroundImage: `url(${props.preview+ item.img_url_preview})` }} onClick={onClickItem}>
       <h2 className={styles.name}>{item.name}</h2>
       <div className={styles.likesDiv}>
         <BsSuitHeartFill className={styles.likeIcon} />
