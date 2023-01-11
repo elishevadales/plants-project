@@ -1,4 +1,4 @@
-import React from 'react'
+import {React,useEffect} from 'react'
 import { TOKEN_NAME } from '../../services/apiService'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './css/headerUser.module.css'
@@ -9,6 +9,13 @@ const HeaderUser = () => {
 
 
   const nav = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage[TOKEN_NAME]) {
+      nav("/")
+    }
+
+  }, [])
 
   const onClick = () => {
     localStorage.removeItem(TOKEN_NAME);

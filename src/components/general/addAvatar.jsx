@@ -24,6 +24,7 @@ const AddAvatar = (props) => {
           return alert("you need to choose file and then upload it")
         }
         let myFile = fileRef.current.files[0];
+        console.log(myFile)
         if(myFile.size > 2 * 1024 * 1024){
           return alert("file too big")
         }
@@ -43,8 +44,6 @@ const AddAvatar = (props) => {
             alert("file uploaded")
             props.setRespApi(Date.now());
             props.handleClose();
-
-            // props.doApi();
           }
         }
         catch (err) {

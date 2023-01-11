@@ -16,6 +16,7 @@ const HomeUser = () => {
   const [ar,setAr] = useState([]);
 
   useEffect(() => {
+    
     doApi();
   },[])
 
