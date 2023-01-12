@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Button, Container, Box } from '@mui/material';
+import { Button, Container, Box, Grid } from '@mui/material';
 import { useForm } from "react-hook-form"
 import { doApiMethod } from '../../services/apiService';
 import { API_URL, doApiGet } from '../../services/apiService';
@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddAvatar from './addAvatar';
 import { ModeEdit } from '@mui/icons-material';
-import { RiDeleteBinLine } from 'react-icons/ri'; 
+import { RiDeleteBinLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom'
 
 
 const style = {
@@ -26,6 +27,7 @@ const style = {
 
 const MyInfo = () => {
   console.clear();
+  const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -59,6 +61,7 @@ const MyInfo = () => {
     catch (err) {
       console.log(err);
       alert("there problem ,try again later")
+      nav("/")
     }
 
   }
@@ -115,22 +118,23 @@ const MyInfo = () => {
           return (
             <div key={item._id} className={styles.formDiv}>
 
-              <form onSubmit={handleSubmit(onSub)} className={styles.form}>
+                <form onSubmit={handleSubmit(onSub)} className={styles.form}>
 
-                <label>Name:</label>
-                <input {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={item.name}></input>
-                {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                <label>Email:</label>
-                <input disabled={item.email} defaultValue={item.email}></input>
-                <label>Date-Created</label>
-                <input disabled={item.date_created} defaultValue={item.date_created}></input>
+                  <label>Name:</label>
+                  <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={item.name}></input>
+                  {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+                  {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+                  <label>Email:</label>
+                  <input className="form-control" disabled={item.email} defaultValue={item.email}></input>
+                  <label>Date-Created</label>
+                  <input className="form-control" disabled={item.date_created} defaultValue={item.date_created}></input>
 
-                <Box textAlign='center'>
-                  <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
-                </Box>
+                  <Box textAlign='center'>
+                    <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
+                  </Box>
 
-              </form>
+                </form>
+
 
               <div>
 

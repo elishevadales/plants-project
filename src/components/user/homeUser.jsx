@@ -34,6 +34,7 @@ const HomeUser = () => {
     catch(err){
       console.log(err);
       alert("there problem ,try again later")
+      nav("/")
     }
 
   }

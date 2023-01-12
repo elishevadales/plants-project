@@ -62,7 +62,7 @@ const AddPlant = () => {
       return alert("file too big")
     }
     let ext_file = img_file[0].name.split('.').pop();
-    if (ext_file != "png" && ext_file != "jpeg" && ext_file != "gif") {
+    if (ext_file != "png" && ext_file != "jpeg" && ext_file != "gif" && ext_file != "jpg") {
       return alert("you can send only png, jpeg, gif")
     }
     await doApiForm(data, img_file);
@@ -141,7 +141,7 @@ const AddPlant = () => {
               }} className="custom-file-upload">
 
                 <input
-                  {...register("img_file")} className={"custom-file-input"} required onChange={onInputPhoto} style={{}} type="file" accept="image/png, image/gif, image/jpeg"
+                  {...register("img_file")} className={"custom-file-input"} required onChange={onInputPhoto} style={{}} type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                 />
                 <MdAddAPhoto style={{ marginRight: "6px" }} />
 
@@ -157,7 +157,6 @@ const AddPlant = () => {
 
               <h4 style={{ color: "#57b846" }}>Plant name</h4>
               <select className="form-select" {...register("name")} required>
-                {/* <option value="select..." >select...</option> */}
                 <option value="">select...</option>
                 {options.map((item,i) => {
                   return(

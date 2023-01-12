@@ -56,7 +56,7 @@ const AddAvatar = (props) => {
         <div>
         <form onSubmit={onSub}>
           <label>Upload file</label>
-          <input ref={fileRef} type="file" accept="image/png, image/gif, image/jpeg" />
+          <input ref={fileRef} type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
           <br/>
           <button>Upload</button>
         </form>
