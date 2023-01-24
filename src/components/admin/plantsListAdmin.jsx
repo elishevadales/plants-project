@@ -11,6 +11,7 @@ const PlantsListAdmin = () => {
 
   const [ar, setAr] = useState([]);
   const [querys] = useSearchParams();
+  const [previeImage, setPrevieImage] = useState("");
 
   useEffect(() => {
     doApi();
@@ -24,8 +25,9 @@ const PlantsListAdmin = () => {
     try {
       console.clear()
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      setAr(resp.data);
+      console.log(resp.data.data);
+      setAr(resp.data.data);
+      setPrevieImage(resp.data.preview);
     }
     catch (err) {
       console.log(err);
@@ -45,7 +47,6 @@ const PlantsListAdmin = () => {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>General Location</th>
             <th>Map Location</th>
             <th>Img_url</th>
             <th>Likes</th>
@@ -58,8 +59,10 @@ const PlantsListAdmin = () => {
         </thead>
         <tbody>
           {ar.map((item,i) => {
+            
             return(
-              <PlantItem key={item._id} index={i} item={item} doApi={doApi} />
+
+              <PlantItem previeImage={previeImage} key={item._id} index={i} item={item} doApi={doApi} />
             )
           })}
         </tbody>

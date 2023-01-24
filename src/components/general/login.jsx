@@ -1,14 +1,18 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
 import { useForm } from "react-hook-form"
 import styles from './css/login.module.css'
 import { Container, style } from '@mui/system'
 import { Button, Typography } from '@mui/material'
 import { FaMapMarkerAlt } from 'react-icons/fa';
+
 import { TbFlower } from 'react-icons/tb';
 import { GiFireFlower, GiCottonFlower, GiSpotedFlower } from 'react-icons/gi';
-import { API_URL, doApiMethod, TOKEN_NAME } from '../../services/apiService';
+import { API_URL, doApiMethod, TOKEN_NAME, doApiGet } from '../../services/apiService';
 import MapUser from '../user/mapUser'
+import { updateUserInfo } from '../../reducer/userInfoSlice';
+import { useSelector, useDispatch } from 'react-redux';
 // import {AppBar ,Toolbar,Typography ,Button ,IconButton} from "@mui/material"
 // import {MenuIcon} from "@mui/icons-material"
 
@@ -17,18 +21,22 @@ import MapUser from '../user/mapUser'
 
 
 const Login = () => {
+  // const dispatch = useDispatch();
   const nav = useNavigate();
+  // const [ar, setAr] = useState([]);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSub = (bodyData) => {
+  const onSub = async (bodyData) => {
     console.log(bodyData);
-    doApiForm(bodyData);
+    await doApiForm(bodyData);
+    // doApiInfo();
   }
 
   const doApiForm = async (bodyData) => {
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
+      console.log(resp.data)
       // delete old token
       localStorage.removeItem(TOKEN_NAME);
       // לשמור את הטוקן
@@ -36,16 +44,15 @@ const Login = () => {
       // לשגר לעמוד של רשימת המשתמשים
       if (resp.data.active == false) {
         alert("Your account is blocked. Please contact the site administrator")
-
-
-
-
         nav("/")
       }
       else if (resp.data.role == "admin") {
+        console.clear();
         nav("/admin")
       }
-      else { nav("/user") }
+      else {
+        nav("/user")
+      }
 
       console.log(resp.data)
     }
@@ -54,6 +61,25 @@ const Login = () => {
       alert("User or password worng, or service down");
     }
   }
+
+  // const doApiInfo = async () => {
+  //   let url = API_URL + "/users/myInfo";
+  //   try {
+  //     let resp = await doApiGet(url);
+  //     console.log(resp.data);
+  //     setAr([resp.data]);
+  //     dispatch(updateUserInfo({
+  //       update: resp.data
+        
+  //     }));
+
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //     alert("there problem ,try again later")
+  //     nav("/")
+  //   }
+  // }
 
   return (
 
@@ -65,10 +91,10 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSub)} className={styles.form}>
           <div className={styles.formDiv}>
             <label>Email:</label><br />
-            <input className="form-control" style={{width:"300px"}} {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} type="text"></input><br />
+            <input className="form-control" style={{ width: "300px" }} {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} type="text"></input><br />
             {errors.email && <div style={{ color: "red" }}>Enter valid name</div>}
             <label>Password:</label><br />
-            <input className="form-control" style={{width:"300px"}} {...register("password", { required: true, minLength: 2 })} type="Password"></input>
+            <input className="form-control" style={{ width: "300px" }} {...register("password", { required: true, minLength: 2 })} type="Password"></input>
             {errors.password && <div style={{ color: "red" }}>Enter valid password</div>}
             <br /><br />
             <div className={styles.buttonDiv}>
@@ -76,9 +102,9 @@ const Login = () => {
 
             </div>
             <p style={{ textAlign: "center" }}>you don't have an account? <Link to="/signUp">sign-up</Link></p>
-            
 
-            
+
+
 
           </div>
 

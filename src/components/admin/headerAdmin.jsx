@@ -1,5 +1,5 @@
 import React from 'react'
-import { TOKEN_NAME } from '../../services/apiService'
+import { doApiGet,TOKEN_NAME, API_URL } from '../../services/apiService'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './css/headerAdmin.module.css'
 import { GiCottonFlower } from 'react-icons/gi';
@@ -7,12 +7,43 @@ import { Button } from '@mui/material';
 import { useEffect} from 'react';
 import ConfirmButton from '../general/confirmButton';
 import CheckAdmin from './checkAdmin'
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserInfo } from '../../reducer/userInfoSlice';
+
 
 const HeaderAdmin = () => {
 
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const myUserInfo = useSelector((myStore) =>
+  myStore.userInfoSlice)
 
+  useEffect(() => {
 
+doApi();
+    
+
+  }, [])
+
+  const doApi = async () => {
+    let url = API_URL + "/users/myInfo";
+    try {
+      // console.clear();
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      dispatch(updateUserInfo({
+        update: resp.data
+
+      }))
+
+    }
+    catch (err) {
+      console.log(err);
+      alert("there problem ,try again later")
+      nav("/")
+    }
+
+  }
 
   const onClick = () => {
     localStorage.removeItem(TOKEN_NAME);
@@ -24,6 +55,7 @@ const HeaderAdmin = () => {
   }
 
   return (
+    <div>
 
     <div className={styles.header}>
       
@@ -47,6 +79,15 @@ const HeaderAdmin = () => {
 
         </ul>
       </nav>
+      <div style={{color:"black"}}>
+        <p>name: {myUserInfo?.user?.name}</p>
+        <p>email: {myUserInfo?.user?.email}</p>
+        <p>img_url: {myUserInfo?.user?.img_url}</p>
+        <p>img_url_preview: {myUserInfo?.user?.img_url_preview}</p>
+        <p>date_created: {myUserInfo?.user?.date_created}</p>
+        <p>role: {myUserInfo?.user?.role}</p>
+      </div>
+    </div>
     </div>
   )
 }

@@ -15,35 +15,51 @@ import PlantsUser from './components/user/plantsUser';
 import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
 
+// redux
+import {configureStore} from "@reduxjs/toolkit"
+import { Provider } from 'react-redux';
+import userInfoSlice from './reducer/userInfoSlice';
+
 const AppRoutes = () => {
+
+  const myStore = configureStore({
+    reducer: {
+      userInfoSlice
+    }
+  })
+
+
   return (
     <BrowserRouter>
+    <Provider store={myStore}>
       <Routes>
-        <Route path="/*" element={<Page404 />} />
-        {/* Admin */}
+        
+          <Route path="/*" element={<Page404 />} />
+          {/* Admin */}
 
-        <Route path="/" element={<LayoutGeneral/>}>
-          <Route path="/" element={<Login/>} />
-          <Route path="/signUp" element={<SignUp/>} />
-        </Route>
+          <Route path="/" element={<LayoutGeneral />}>
+            <Route path="/" element={<Login />} />
+            <Route path="/signUp" element={<SignUp />} />
+          </Route>
 
-        <Route path="/admin" element={<LayoutAdmin />}>
-          <Route path="/admin" element={<UsersListAdmin />} />
-          <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
-          <Route path="/admin/myInfo" element={<MyInfo />} />
-        </Route>
+          <Route path="/admin" element={<LayoutAdmin />}>
+            <Route path="/admin" element={<UsersListAdmin />} />
+            <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
+            <Route path="/admin/myInfo" element={<MyInfo />} />
+          </Route>
 
-        {/* User */}
-        <Route path="/user" element={<LayoutUser />}>
-          <Route path="/user" element={<HomeUser />} />
-          <Route path="/user/map" element={<MapUser />} />
-          <Route path="/user/myPlants" element={<PlantsUser />} />
-          <Route path="/user/myInfo" element={<MyInfo />} />
-          <Route path="/user/newPlant" element={<AddPlant />} />
-          <Route path="/user/plantDetails" element={<PlantDetails />} />
-        </Route>
-
+          {/* User */}
+          <Route path="/user" element={<LayoutUser />}>
+            <Route path="/user" element={<HomeUser />} />
+            <Route path="/user/map" element={<MapUser />} />
+            <Route path="/user/myPlants" element={<PlantsUser />} />
+            <Route path="/user/myInfo" element={<MyInfo />} />
+            <Route path="/user/newPlant" element={<AddPlant />} />
+            <Route path="/user/plantDetails" element={<PlantDetails />} />
+          </Route>
+        
       </Routes>
+      </Provider>
     </BrowserRouter>
   )
 }

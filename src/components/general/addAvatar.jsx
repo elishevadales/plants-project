@@ -39,10 +39,12 @@ const AddAvatar = (props) => {
             headers: {
               'x-api-key': localStorage[TOKEN_NAME]
             }
+            
           })
+          console.log(resp);
           if(resp.data.status){
             alert("file uploaded")
-            props.setRespApi(Date.now());
+            // props.doApi();
             props.handleClose();
           }
         }

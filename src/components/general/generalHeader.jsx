@@ -10,7 +10,6 @@ import { GiCottonFlower } from 'react-icons/gi';
 const GeneralHeader = () => {
     const location = useLocation();
     const color = grey[500]
-
     const nav = useNavigate();
 
     const onClick = () => {

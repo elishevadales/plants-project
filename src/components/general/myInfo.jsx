@@ -11,6 +11,8 @@ import AddAvatar from './addAvatar';
 import { ModeEdit } from '@mui/icons-material';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserInfo } from '../../reducer/userInfoSlice';
 
 
 const style = {
@@ -26,16 +28,17 @@ const style = {
 };
 
 const MyInfo = () => {
-  console.clear();
+
+  //redux
+  const dispatch = useDispatch();
+  const myUserInfo = useSelector((myStore) =>
+    myStore.userInfoSlice)
+
   const nav = useNavigate();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [ar, setAr] = useState([]);
-  console.log(ar)
-  const [respApi, setRespApi] = useState([0]);
 
 
   const { register, getValues, handleSubmit, formState: { errors } } = useForm();
@@ -44,6 +47,7 @@ const MyInfo = () => {
 
   useEffect(() => {
     doApi();
+    
 
   }, [])
 
@@ -55,7 +59,11 @@ const MyInfo = () => {
       // console.clear();
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setAr([resp.data]);
+      dispatch(updateUserInfo({
+        update: resp.data
+        
+      }))
+
 
     }
     catch (err) {
@@ -85,6 +93,7 @@ const MyInfo = () => {
     console.clear();
     console.log(bodyData)
     doApiForm(bodyData);
+   
   }
 
   const onDelClick = async () => {
@@ -94,7 +103,7 @@ const MyInfo = () => {
       let url = API_URL + "/upload/avatar";
       try {
         let resp = await doApiMethod(url, "DELETE");
-        console.log(ar)
+        // console.log(ar)
         console.log(resp.data);
         alert("profile image wad deleted")
         doApi();
@@ -112,39 +121,37 @@ const MyInfo = () => {
 
   return (
     <Container >
+      
       <div className={styles.container}>
 
-        {ar.map((item, i) => {
-          return (
-            <div key={item._id} className={styles.formDiv}>
 
-                <form onSubmit={handleSubmit(onSub)} className={styles.form}>
+            <div className={styles.formDiv}>
 
-                  <label>Name:</label>
-                  <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={item.name}></input>
-                  {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                  {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                  <label>Email:</label>
-                  <input className="form-control" disabled={item.email} defaultValue={item.email}></input>
-                  <label>Date-Created</label>
-                  <input className="form-control" disabled={item.date_created} defaultValue={item.date_created}></input>
+              <form onSubmit={handleSubmit(onSub)} className={styles.form}>
+                <label>Name:</label>
+                <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={myUserInfo?.user?.name}></input>
+                {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+                {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+                <label>Email:</label>
+                <input className="form-control" disabled={myUserInfo?.user?.email} defaultValue={myUserInfo?.user?.email}></input>
+                <label>Date-Created</label>
+                <input className="form-control" disabled={myUserInfo?.user?.date_created} defaultValue={myUserInfo?.user?.date_created}></input>
 
-                  <Box textAlign='center'>
-                    <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
-                  </Box>
+                <Box textAlign='center'>
+                  <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
+                </Box>
 
-                </form>
+              </form>
 
 
               <div>
 
-                <div className={styles.imgDiv} style={{ backgroundImage: `url(${item.img_url_preview})` }}></div>
+                <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo?.user?.img_url_preview})` }}></div>
 
 
                 <div style={{ display: "flex", justifyContent: "end" }}>
                   <p onClick={handleOpen} className={styles.editBtn}><ModeEdit /></p>
                   <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine /></p>
-                  {/* <p>{respApi}</p> */}
                 </div>
 
                 <Modal
@@ -158,7 +165,7 @@ const MyInfo = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                       Edit profile photo
                     </Typography>
-                    <AddAvatar handleClose={handleClose} doApi={doApi} setRespApi={setRespApi} />
+                    <AddAvatar handleClose={handleClose} doApi={doApi} />
                   </Box>
 
 
@@ -166,8 +173,6 @@ const MyInfo = () => {
                 </Modal>
               </div>
             </div>
-          )
-        })}
 
 
       </div>

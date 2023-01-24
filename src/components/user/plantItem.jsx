@@ -1,29 +1,8 @@
 import React from 'react'
-import { API_URL } from '../../services/apiService';
-import { doApiMethod } from '../../services/apiService';
-import styles from "./css/plantItem.module.css"
-import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom'
-import PlantDetails from './plantDetails';
 
-const PlantItem = (props) => {
-
-  let item = props.item;
-  const nav = useNavigate();
-
-  const onClickItem = () => {
-    nav("/user/plantDetails")
-
-  }
-
+const PlantItem = () => {
   return (
-    <div className={styles.plantItem} style={{ backgroundImage: `url(${props.preview+ item.img_url_preview})` }} onClick={onClickItem}>
-      <h2 className={styles.name}>{item.name}</h2>
-      <div className={styles.likesDiv}>
-        <BsSuitHeartFill className={styles.likeIcon} />
-      </div>
-
-    </div>
+    <div>PlantItem</div>
   )
 }
 

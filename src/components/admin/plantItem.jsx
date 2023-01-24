@@ -3,6 +3,8 @@ import { API_URL,doApiMethod } from '../../services/apiService';
 
 const PlantItem = (props) => {
 
+    
+
     const onDelClick = async () => {
         if (window.confirm("Are you sure you want to delete " + item.name + "?")) {
             try {
@@ -22,16 +24,17 @@ const PlantItem = (props) => {
     }
 
     let item = props.item;
-    console.log(item.name)
 
     return (
         
         <tr>
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
-            <td>{item.location}</td>
-            <td>{JSON.stringify(item.mapLocation, null, 2)}</td>
-            <td><img src={item.img_url} height="40" alt="pic"/></td>
+            <td>
+            <span style={{fontWeight:"bold"}}>lat: </span>{item.mapLocation.lat.$numberDecimal} <br/>
+            <span style={{fontWeight:"bold"}}>long: </span>{item.mapLocation.long.$numberDecimal}
+            </td>
+            <td><img src={props.previeImage + item.img_url_preview} height="40" alt="pic"/></td>
             <td>{item.likes} </td>
             <td>{item.comments} </td>
             <td>{String(item.active)} </td>

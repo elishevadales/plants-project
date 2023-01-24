@@ -10,7 +10,10 @@ import { GiCottonFlower } from 'react-icons/gi';
 
 
 
+
 const MapUser = () => {
+
+
 
 
   const nav = useNavigate();
@@ -58,6 +61,7 @@ const MapUser = () => {
     <div>
       <div style={{ zIndex: 0 }}>
         <Container sx={{ pt: 2 }}>
+
           <Grid container>
             <Grid xs={12} item>
               <MapContainer
@@ -71,13 +75,16 @@ const MapUser = () => {
                 {ar.map((item,i) => {
                   console.log(item.mapLocation.lat.$numberDecimal)
                   return(
-                    <Marker position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>
+                    <div key={i}>
+                    <Marker  position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>
                     <Popup>
                       <b>{item.name}</b>
-                      <div style={{backgroundImage: `url(${previeImage+ item.img_url_preview})`, height:100,width:100 , backgroundSize:"cover", backgroundPosition:"center"}}/>
+                      <div style={{ backgroundImage: `url(${previeImage+ item.img_url_preview})`, height:100,width:100 , backgroundSize:"cover", backgroundPosition:"center"}}/>
 
                     </Popup>
                   </Marker>
+                    </div>
+
                   )
                 })}
 

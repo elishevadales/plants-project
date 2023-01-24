@@ -158,9 +158,9 @@ const AddPlant = () => {
               <h4 style={{ color: "#57b846" }}>Plant name</h4>
               <select className="form-select" {...register("name")} required>
                 <option value="">select...</option>
-                {options.map((item,i) => {
-                  return(
-                    <option value={item.value}>{item.label}</option>
+                {options.map((item, i) => {
+                  return (
+                    <option key={i} value={item.value}>{item.label}</option>
                   )
                 })}
               </select>
@@ -183,7 +183,7 @@ const AddPlant = () => {
                   <input required className="form-control" defaultValue={plant.mapLocation.long} {...register("mapLocation.long")}></input>
                 </div>
                 :
-                <>
+                <div>
                   <label>Latitude:</label>
                   <br />
                   <input required className="form-control"></input>
@@ -191,7 +191,7 @@ const AddPlant = () => {
                   <label>Longitude:</label>
                   <br />
                   <input required className="form-control"></input>
-                </>
+                </div>
               }
 
               {/*map/*}
