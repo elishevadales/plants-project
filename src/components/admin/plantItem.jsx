@@ -39,7 +39,8 @@ const PlantItem = (props) => {
             <td>{item.comments} </td>
             <td>{String(item.active)} </td>
             <td>{item.date_created} </td>
-            <td>{item.user_id} </td>
+            <td>{item.user_id._id} </td>
+            <td>{item.user_id.name} </td>
 
             <td>
                 <button onClick={() => { onDelClick() }} className='btn btn-danger'>Del</button>

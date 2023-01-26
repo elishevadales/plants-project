@@ -54,6 +54,7 @@ const PlantsListAdmin = () => {
             <th>Active</th>
             <th>Date</th>
             <th>UserId</th>
+            <th>User Name</th>
             <th>Edit/Del</th>
           </tr>
         </thead>

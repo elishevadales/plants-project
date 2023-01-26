@@ -117,11 +117,11 @@ const HomeUser = () => {
                 <IconButton  onClick={onLike} aria-label="add to favorites">
                   <FavoriteIcon />
                 </IconButton>
-                {item.likes==0?
+                {/* {item.likes==0?
                 <></>:
                 <>{item.likes}</>
-              }
-                
+              } */}
+                <>{item.likes}</>
               </CardActions>
 
             </Card>

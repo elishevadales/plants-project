@@ -85,9 +85,6 @@ const HeaderUser = () => {
 
   }
 
-  const onClickLogo = () => {
-    nav("/user");
-  }
 
   return (
     <div>

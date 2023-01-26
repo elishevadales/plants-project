@@ -16,7 +16,7 @@ import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
 
 // redux
-import {configureStore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import { Provider } from 'react-redux';
 import userInfoSlice from './reducer/userInfoSlice';
 
@@ -31,21 +31,22 @@ const AppRoutes = () => {
 
   return (
     <BrowserRouter>
-    <Provider store={myStore}>
-      <Routes>
-        
+      <Provider store={myStore}>
+        <Routes>
+
           <Route path="/*" element={<Page404 />} />
-          {/* Admin */}
+
 
           <Route path="/" element={<LayoutGeneral />}>
             <Route path="/" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
           </Route>
-
+          {/* Admin */}
           <Route path="/admin" element={<LayoutAdmin />}>
             <Route path="/admin" element={<UsersListAdmin />} />
             <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
             <Route path="/admin/myInfo" element={<MyInfo />} />
+            <Route path="/admin/map" element={<MapUser />} />
           </Route>
 
           {/* User */}
@@ -57,8 +58,8 @@ const AppRoutes = () => {
             <Route path="/user/newPlant" element={<AddPlant />} />
             <Route path="/user/plantDetails" element={<PlantDetails />} />
           </Route>
-        
-      </Routes>
+
+        </Routes>
       </Provider>
     </BrowserRouter>
   )

@@ -117,6 +117,8 @@ const AddPlant = () => {
   }
 
 
+
+
   return (
 
     <form onSubmit={handleSubmit(onSub)}>
@@ -143,11 +145,13 @@ const AddPlant = () => {
                 <input
                   {...register("img_file")} className={"custom-file-input"} required onChange={onInputPhoto} style={{}} type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                 />
+
                 <MdAddAPhoto style={{ marginRight: "6px" }} />
 
 
 
               </div>
+
 
               {/* {photoFlag == false ? <></> : <BsCheckLg style={{ color: "green", marginLeft: "10px" }} />} */}
 
