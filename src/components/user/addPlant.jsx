@@ -37,6 +37,7 @@ const AddPlant = () => {
 
   // add location
   const componentDidMount = () => {
+    
     navigator.geolocation.getCurrentPosition((position) => {
       let updatePlant = { mapLocation: { "lat": position.coords.latitude, "long": position.coords.longitude } };
 
