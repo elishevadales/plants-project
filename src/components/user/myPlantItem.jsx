@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { API_URL, TOKEN_NAME } from '../../services/apiService';
+import { API_URL } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,8 +32,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const PlantItem = (props) => {
-
+const MyPlantItem = (props) => {
   const nav = useNavigate();
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
@@ -41,17 +40,14 @@ const PlantItem = (props) => {
 
   const [like, setLike] = useState(false)
   const [likesCount, setlikesCount] = useState(props.item.likes)
+
   const [expanded, setExpanded] = React.useState(false);
-  const date = props.item.date_created.slice(8,10)+"/"+props.item.date_created.slice(5,7)+"/"+props.item.date_created.slice(0,4);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   useEffect(() => {
-    if (!localStorage[TOKEN_NAME]) {
-      nav("/")
-    }
     if (props.item.likesList.includes(userId)) {
       setLike(true)
     }
@@ -59,12 +55,6 @@ const PlantItem = (props) => {
   }, [])
 
   const onLike = async () => {
-    if (!localStorage[TOKEN_NAME]) {
-      nav("/")
-    }
-    else {
-
-    
     let url = API_URL + "/plants/addLike/" + props.item._id;
     let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
     if (like) {
@@ -91,7 +81,7 @@ const PlantItem = (props) => {
         alert("There is a problem with adding LIKE");
       }
     }
-  }
+
   }
 
 
@@ -99,30 +89,33 @@ const PlantItem = (props) => {
     nav("/user/plantDetails")
 
   }
-
-
+  console.log(props.previewAvatar + "+" + props.item.user_id.img_url_preview)
+  console.log(props.preview + "+" + props.item.img_url_preview)
   return (
 
-    <Card sx={{ width: { xs: "80%", md: "50%" }, margin: 2 }}>
+    <Card sx={{ width: { xs: "80%", md: "40%" }, margin: 2 }}>
       <CardHeader
-        
+        onClick={onClickItem}
         avatar={
           <Avatar aria-label="recipe" src={props.previewAvatar + props.item.user_id.img_url_preview}>
 
           </Avatar>
         }
-
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
         title={props.item.user_id.name}
-        subheader={ props.item.date_created}
+        subheader={props.item.date_created}
       />
+
       <CardMedia
-      onClick={onClickItem}
-      style={{cursor: "pointer"}}
         sx={{
           height: {
             xs: "300px",
             sm: "350px",
-            md:"500px"
+            md: "400px"
           }
         }}
         component="img"
@@ -131,6 +124,14 @@ const PlantItem = (props) => {
         alt="Paella dish"
 
       />
+
+
+
+
+
+
+
+
 
       <CardActions disableSpacing>
         <IconButton onClick={onLike} aria-label="add to favorites">
@@ -182,4 +183,4 @@ const PlantItem = (props) => {
   )
 }
 
-export default PlantItem
+export default MyPlantItem

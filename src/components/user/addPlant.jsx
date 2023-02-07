@@ -198,10 +198,8 @@ const AddPlant = () => {
                   <input required className="form-control"></input>
                 </div>
               }
-
-              {/*map/*}
-leaflet or maptiler
-
+              <h4 style={{ color: "#57b846" }}>you can add a description:</h4>
+              <textArea {...register("description")} maxlength="400" className="form-control"></textArea>
 
               {/* submit button */}
               <div style={{ display: "flex", justifyContent: "center" }}>

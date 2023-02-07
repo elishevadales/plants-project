@@ -1,10 +1,13 @@
-import { Container } from '@mui/system'
+
+import { Button, Container, Box, Grid } from '@mui/material';
 import PlantItem from './plantItem'
 import { useState, useEffect } from 'react';
-import { API_URL, doApiGet } from '../../services/apiService';
+import { API_URL, doApiGet, TOKEN_NAME } from '../../services/apiService';
 import styles from "./css/homeUser.module.css";
 import btnStyles from "./css/addPlantBtn.module.css"
 import { useNavigate } from 'react-router-dom'
+import { FaSearch } from 'react-icons/fa';
+import options from '../../constants/plantsNames'
 
 
 import * as React from 'react';
@@ -29,7 +32,7 @@ const ExpandMore = styled((props) => {
 
 const HomeUser = () => {
 
-  
+
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
   const [originalImage, setOriginalImage] = useState("");
@@ -38,7 +41,13 @@ const HomeUser = () => {
 
 
   useEffect(() => {
-    doApi();
+
+    if (!localStorage[TOKEN_NAME]) {
+      nav("/")
+    }
+    else {
+      doApi();
+    }
 
   }, [])
 
@@ -70,20 +79,38 @@ const HomeUser = () => {
 
 
   return (
-    <Container>
-      <div>
-        <label>search:</label>
-        <input type={"text"}></input>
-        <label>sort:</label>
-        <select></select>
-      </div>
+    <Container sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <Grid sx={{ padding: "20px",width:{md:"60%",xs:"100%"},background:"#57b846",borderRadius:{md:"0 0 30px 30px"},marginBottom:"20px",display:"flex"}}>
 
-      <div className={styles.allPlants}>
+        <div className='input-group'>
+          <div className='form-outline' style={{display:"flex"}}>
+            <input style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
+          </div>
+          <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black",border:"black" }} type='button' className='btn btn-primary'>
+            <FaSearch />
+          </button>
+        </div>
+
+        <select style={{width:"300px", height: "35px"}} className="form-select">
+          <option value="">all plants</option>
+          {options.map((item, i) => {
+            return (
+              <option key={i} value={item.value}>{item.label}</option>
+            )
+          })}
+
+        </select>
+        
+      </Grid>
+      
+
+      <div style={{ justifyContent: "center" }} className={styles.allPlants}>
+      
         {ar.map((item, i) => {
-          console.log(previewAvatar + item.user_id.img_url)
+
           return (
-          
-            <PlantItem key={item._id} index={i} item={item} original={originalImage} preview={previeImage} />
+
+            <PlantItem key={item._id} index={i} item={item} original={originalImage} preview={previeImage} previewAvatar={previewAvatar} />
           )
         })}
       </div>

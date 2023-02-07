@@ -11,7 +11,7 @@ import LayoutUser from './components/user/layoutUser';
 import LayoutGeneral from './components/general/layoutGeneral';
 import MyInfo from './components/general/myInfo';
 import MapUser from './components/user/mapUser';
-import PlantsUser from './components/user/plantsUser';
+import MyPlants from './components/user/myPlants';
 import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
 
@@ -53,7 +53,7 @@ const AppRoutes = () => {
           <Route path="/user" element={<LayoutUser />}>
             <Route path="/user" element={<HomeUser />} />
             <Route path="/user/map" element={<MapUser />} />
-            <Route path="/user/myPlants" element={<PlantsUser />} />
+            <Route path="/user/myPlants" element={<MyPlants />} />
             <Route path="/user/myInfo" element={<MyInfo />} />
             <Route path="/user/newPlant" element={<AddPlant />} />
             <Route path="/user/plantDetails" element={<PlantDetails />} />

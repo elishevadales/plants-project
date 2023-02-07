@@ -62,18 +62,18 @@ const MapUser = () => {
       <div style={{ zIndex: 0 }}>
         <Container sx={{ pt: 2 }}>
 
-          <Grid container>
-            <Grid xs={12} item>
+          <Grid container style={{justifyContent:"center"}}>
+            <Grid xs={12} sm={10} item style={{}}>
               <MapContainer
                 center={center}
                 zoom={ZOOM_LEVEL}
                 ref={mapRef}
                 maxZoom={18}
-                style={{ height: "80vh" }}
+                style={{ height: "70vh",border:"10px solid #efefef",borderRadius:"20px"  }}
               >
                 <TileLayer url={"https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=1gChS6Aib0ohtpBmJnOY"} attribution={'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'} />
                 {ar.map((item,i) => {
-                  console.log(item.mapLocation.lat.$numberDecimal)
+              
                   return(
                     <div key={i}>
                     <Marker  position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>

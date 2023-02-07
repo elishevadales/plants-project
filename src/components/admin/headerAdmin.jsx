@@ -98,7 +98,7 @@ const HeaderAdmin = () => {
             <Typography
               variant="h6"
               noWrap
-              component="a"
+              component={'span'}
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -178,8 +178,8 @@ const HeaderAdmin = () => {
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
+              component={'span'}
+              
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
