@@ -19,12 +19,14 @@ import PlantDetails from './components/user/plantDetails';
 import { configureStore } from "@reduxjs/toolkit"
 import { Provider } from 'react-redux';
 import userInfoSlice from './reducer/userInfoSlice';
+import navigationSlice from './reducer/navigationSlice';
 
 const AppRoutes = () => {
 
   const myStore = configureStore({
     reducer: {
-      userInfoSlice
+      userInfoSlice,
+      navigationSlice
     }
   })
 
@@ -51,12 +53,14 @@ const AppRoutes = () => {
 
           {/* User */}
           <Route path="/user" element={<LayoutUser />}>
+          
             <Route path="/user" element={<HomeUser />} />
             <Route path="/user/map" element={<MapUser />} />
             <Route path="/user/myPlants" element={<MyPlants />} />
             <Route path="/user/myInfo" element={<MyInfo />} />
             <Route path="/user/newPlant" element={<AddPlant />} />
             <Route path="/user/plantDetails" element={<PlantDetails />} />
+            
           </Route>
 
         </Routes>

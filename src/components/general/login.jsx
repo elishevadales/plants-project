@@ -30,7 +30,9 @@ const Login = () => {
     console.log(bodyData);
     await doApiForm(bodyData);
     // doApiInfo();
+    console.log(bodyData);
   }
+
 
   const doApiForm = async (bodyData) => {
     let url = API_URL + "/users/login"

@@ -2,22 +2,26 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
+import MenuList from '@mui/material/MenuList';
+import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Button } from '@mui/material';
+import { Button, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { API_URL } from '../../services/apiService';
+import { API_URL, TOKEN_NAME } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Collapse from '@mui/material/Collapse';
 import CardContent from '@mui/material/CardContent';
+import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
@@ -55,33 +59,35 @@ const MyPlantItem = (props) => {
   }, [])
 
   const onLike = async () => {
-    let url = API_URL + "/plants/addLike/" + props.item._id;
-    let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
-    if (like) {
-      try {
-        let resp = await doApiMethod(url2, "PATCH")
-        setlikesCount(resp.data.likes)
-        setLike(false)
-        console.log(resp.data)
-      }
-      catch (err) {
-        console.log(err.response);
-        alert("There is a problem with delete LIKE");
-      }
+    if (!localStorage[TOKEN_NAME]) {
+      nav("/")
     }
     else {
+
+
+      let url = API_URL + "/plants/editLike/" + props.item._id;
+      let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
       try {
         let resp = await doApiMethod(url, "PATCH")
         setlikesCount(resp.data.likes)
-        setLike(true)
+        if (like) {
+          setLike(false)
+        }
+        else {
+          setLike(true)
+        }
+
+
+
         console.log(resp.data)
       }
       catch (err) {
         console.log(err.response);
-        alert("There is a problem with adding LIKE");
+        alert("There is a problem with editting LIKE");
       }
-    }
 
+
+    }
   }
 
 
@@ -89,26 +95,65 @@ const MyPlantItem = (props) => {
     nav("/user/plantDetails")
 
   }
+
+  //mui
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // end mui
+
   console.log(props.previewAvatar + "+" + props.item.user_id.img_url_preview)
   console.log(props.preview + "+" + props.item.img_url_preview)
   return (
 
     <Card sx={{ width: { xs: "80%", md: "40%" }, margin: 2 }}>
       <CardHeader
-        onClick={onClickItem}
+
         avatar={
           <Avatar aria-label="recipe" src={props.previewAvatar + props.item.user_id.img_url_preview}>
 
           </Avatar>
         }
+
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <div>
+            <IconButton
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <Box>
+                <MenuItem onClick={handleClose}>edit</MenuItem>
+                <MenuItem onClick={handleClose}>delete</MenuItem>
+              </Box>
+            </Menu>
+          </div>
         }
         title={props.item.user_id.name}
         subheader={props.item.date_created}
-      />
+      >
+
+      </CardHeader>
 
       <CardMedia
         sx={{
@@ -116,22 +161,16 @@ const MyPlantItem = (props) => {
             xs: "300px",
             sm: "350px",
             md: "400px"
-          }
+          },
+          cursor: "pointer"
         }}
+        onClick={onClickItem}
         component="img"
         // height="500"
         image={props.preview + props.item.img_url_preview}
         alt="Paella dish"
 
       />
-
-
-
-
-
-
-
-
 
       <CardActions disableSpacing>
         <IconButton onClick={onLike} aria-label="add to favorites">

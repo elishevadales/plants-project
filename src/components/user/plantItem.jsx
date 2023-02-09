@@ -20,6 +20,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+// import { useHistory } from 'react-router-dom';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,6 +37,8 @@ const ExpandMore = styled((props) => {
 const PlantItem = (props) => {
 
   const nav = useNavigate();
+  const navigationServer = useSelector((myStore) =>
+  myStore.navigationSlice)
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   let userId = myUserInfo.user._id;
@@ -42,7 +46,7 @@ const PlantItem = (props) => {
   const [like, setLike] = useState(false)
   const [likesCount, setlikesCount] = useState(props.item.likes)
   const [expanded, setExpanded] = React.useState(false);
-  const date = props.item.date_created.slice(8,10)+"/"+props.item.date_created.slice(5,7)+"/"+props.item.date_created.slice(0,4);
+  const date = props.item.date_created.slice(8, 10) + "/" + props.item.date_created.slice(5, 7) + "/" + props.item.date_created.slice(0, 4);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -64,39 +68,41 @@ const PlantItem = (props) => {
     }
     else {
 
-    
-    let url = API_URL + "/plants/addLike/" + props.item._id;
-    let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
-    if (like) {
-      try {
-        let resp = await doApiMethod(url2, "PATCH")
-        setlikesCount(resp.data.likes)
-        setLike(false)
-        console.log(resp.data)
-      }
-      catch (err) {
-        console.log(err.response);
-        alert("There is a problem with delete LIKE");
-      }
-    }
-    else {
+
+      let url = API_URL + "/plants/editLike/" + props.item._id;
+      let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
       try {
         let resp = await doApiMethod(url, "PATCH")
         setlikesCount(resp.data.likes)
-        setLike(true)
+        if (like) {
+          setLike(false)
+        }
+        else {
+          setLike(true)
+        }
+
+
+
         console.log(resp.data)
       }
       catch (err) {
         console.log(err.response);
-        alert("There is a problem with adding LIKE");
+        alert("There is a problem with editting LIKE");
       }
+
+
     }
-  }
   }
 
 
   const onClickItem = () => {
-    nav("/user/plantDetails")
+    // nav("/user/plantDetails")
+
+      nav(
+        '/user/plantDetails',{
+        state: props.item
+      });
+
 
   }
 
@@ -105,29 +111,29 @@ const PlantItem = (props) => {
 
     <Card sx={{ width: { xs: "80%", md: "50%" }, margin: 2 }}>
       <CardHeader
-        
+
         avatar={
-          <Avatar aria-label="recipe" src={props.previewAvatar + props.item.user_id.img_url_preview}>
+          <Avatar aria-label="recipe" src={navigationServer.navigate.previewAvatar + props.item.user_id.img_url_preview}>
 
           </Avatar>
         }
 
         title={props.item.user_id.name}
-        subheader={ props.item.date_created}
+        subheader={props.item.date_created}
       />
       <CardMedia
-      onClick={onClickItem}
-      style={{cursor: "pointer"}}
+        onClick={onClickItem}
+        style={{ cursor: "pointer" }}
         sx={{
           height: {
             xs: "300px",
             sm: "350px",
-            md:"500px"
+            md: "500px"
           }
         }}
         component="img"
         // height="500"
-        image={props.preview + props.item.img_url_preview}
+        image={navigationServer.navigate.previewPlant + props.item.img_url_preview}
         alt="Paella dish"
 
       />

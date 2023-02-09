@@ -8,12 +8,14 @@ import btnStyles from "./css/addPlantBtn.module.css"
 import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
 import options from '../../constants/plantsNames'
+import { useSelector, useDispatch } from 'react-redux';
+import { updateNavigate} from '../../reducer/navigationSlice';
 
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 
-import IconButton from '@mui/material/IconButton';
+import {IconButton,Input } from '@mui/material';
 
 
 
@@ -34,10 +36,13 @@ const HomeUser = () => {
 
 
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const navigationServer = useSelector((myStore) =>
+  myStore.navigationSlice)
   const [ar, setAr] = useState([]);
-  const [originalImage, setOriginalImage] = useState("");
-  const [previeImage, setPrevieImage] = useState("");
-  const [previewAvatar, setPreviewAvatar] = useState("");
+  // const [originalImage, setOriginalImage] = useState("");
+  // const [previeImage, setPrevieImage] = useState("");
+  // const [previewAvatar, setPreviewAvatar] = useState("");
 
 
   useEffect(() => {
@@ -48,6 +53,7 @@ const HomeUser = () => {
     else {
       doApi();
     }
+    console.log(navigationServer.navigate)
 
   }, [])
 
@@ -57,10 +63,22 @@ const HomeUser = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      setOriginalImage(resp.data.original);
-      setPrevieImage(resp.data.preview);
+      // setOriginalImage(resp.data.original);
+      // setPrevieImage(resp.data.preview);
+      // setPreviewAvatar(resp.data.previewAvatar);
 
-      setPreviewAvatar(resp.data.previewAvatar);
+
+      dispatch(updateNavigate({
+        update: {
+          previewAvatar: resp.data.previewAvatar,
+          originalAvatar: resp.data.originalAvatar,
+          previewPlant: resp.data.preview,
+          originalPlant: resp.data.original
+
+        }
+
+      }))
+      
 
     }
     catch (err) {
@@ -68,7 +86,7 @@ const HomeUser = () => {
       alert("there problem ,try again later")
       nav("/")
     }
-
+    
   }
 
   const onPlusBtn = () => {
@@ -84,7 +102,7 @@ const HomeUser = () => {
 
         <div className='input-group'>
           <div className='form-outline' style={{display:"flex"}}>
-            <input style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
+            <input  style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
           </div>
           <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black",border:"black" }} type='button' className='btn btn-primary'>
             <FaSearch />
@@ -110,7 +128,7 @@ const HomeUser = () => {
 
           return (
 
-            <PlantItem key={item._id} index={i} item={item} original={originalImage} preview={previeImage} previewAvatar={previewAvatar} />
+            <PlantItem key={item._id} index={i} item={item} />
           )
         })}
       </div>
