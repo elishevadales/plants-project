@@ -14,6 +14,7 @@ import MapUser from './components/user/mapUser';
 import MyPlants from './components/user/myPlants';
 import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
+import UserDetails from './components/user/userDetails';
 
 // redux
 import { configureStore } from "@reduxjs/toolkit"
@@ -60,6 +61,7 @@ const AppRoutes = () => {
             <Route path="/user/myInfo" element={<MyInfo />} />
             <Route path="/user/newPlant" element={<AddPlant />} />
             <Route path="/user/plantDetails" element={<PlantDetails />} />
+            <Route path="/user/userDetails" element={<UserDetails />} />
             
           </Route>
 

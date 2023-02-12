@@ -38,12 +38,14 @@ const PlantItem = (props) => {
 
   const nav = useNavigate();
   const navigationServer = useSelector((myStore) =>
-  myStore.navigationSlice)
+    myStore.navigationSlice)
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   let userId = myUserInfo.user._id;
 
   const [like, setLike] = useState(false)
+  const [item, setItem] = useState(props.item)
+  const [isHover, setHover] = useState(false);
   const [likesCount, setlikesCount] = useState(props.item.likes)
   const [expanded, setExpanded] = React.useState(false);
   const date = props.item.date_created.slice(8, 10) + "/" + props.item.date_created.slice(5, 7) + "/" + props.item.date_created.slice(0, 4);
@@ -70,16 +72,17 @@ const PlantItem = (props) => {
 
 
       let url = API_URL + "/plants/editLike/" + props.item._id;
-      let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
       try {
         let resp = await doApiMethod(url, "PATCH")
         setlikesCount(resp.data.likes)
+        setItem(resp.data)
         if (like) {
           setLike(false)
         }
         else {
           setLike(true)
         }
+
 
 
 
@@ -98,12 +101,28 @@ const PlantItem = (props) => {
   const onClickItem = () => {
     // nav("/user/plantDetails")
 
-      nav(
-        '/user/plantDetails',{
-        state: props.item
-      });
+    nav(
+      '/user/plantDetails', {
+      state: {
+        item: item,
+        like: like
+      }
+    });
 
 
+  }
+  const handleHover = () => {
+    setHover(true);
+
+  }
+  const handleOverLeave = () => {
+    setHover(false);
+  }
+  const onClickUser = () => {
+    nav(
+      '/user/userDetails', {
+      state: props.item.user_id
+    });
   }
 
 
@@ -118,8 +137,10 @@ const PlantItem = (props) => {
           </Avatar>
         }
 
-        title={props.item.user_id.name}
-        subheader={props.item.date_created}
+        title={
+          <span onClick={onClickUser} onMouseEnter={handleHover} onMouseLeave={handleOverLeave} style={{ cursor: "pointer", textDecoration: isHover ? "underLine" : "none" }}>{props.item.user_id.name}</span>}
+        subheader={date
+        }
       />
       <CardMedia
         onClick={onClickItem}

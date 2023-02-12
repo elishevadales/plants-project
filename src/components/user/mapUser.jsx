@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { API_URL, doApiGet } from '../../services/apiService';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserInfo } from '../../reducer/userInfoSlice';
 
 import L from "leaflet"
 import { GiCottonFlower } from 'react-icons/gi';
@@ -20,9 +22,12 @@ const MapUser = () => {
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
+  const [userInfo,setUserInfo] =useState();
   const [originalImage, setOriginalImage] = useState("");
   const [previeImage, setPreviewImage] = useState("");
-
+  const dispatch = useDispatch();
+  const myUserInfo = useSelector((myStore) =>
+    myStore.userInfoSlice)
   const [center, stCenter] = useState({ lat: 31.893518, lng: 35.082817 });
   const ZOOM_LEVEL = 9;
   const mapRef = useRef();
@@ -35,8 +40,29 @@ const MapUser = () => {
   useEffect(() => {
 
     doApi();
+    doApiMyInfo();
   }, [])
 
+  const doApiMyInfo = async() => {
+    let url = API_URL + "/users/myInfo";
+    try {
+
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      dispatch(updateUserInfo({
+        update: resp.data
+
+      }))
+      
+
+    }
+    catch (err) {
+      console.log(err);
+      alert("there problem ,try again later")
+
+    }
+  }
+  
   const doApi = async () => {
     let url = API_URL + "/plants";
     try {
@@ -61,11 +87,12 @@ const MapUser = () => {
   }
 
   const onClickItem = (item) => {
-    // nav("/user/plantDetails")
-
+    console.log(item.likesList)
+    console.log(myUserInfo)
       nav(
         '/user/plantDetails',{
-        state: item
+        state: {item:item,
+        like: item.likesList.includes(myUserInfo.user._id)? true : false}
       });
 
 

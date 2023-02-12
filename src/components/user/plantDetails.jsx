@@ -13,7 +13,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 
 import L from "leaflet"
 import { useState, useEffect } from 'react';
-import { Container, IconButton, Avatar, CardHeader, DialogTitle, Button, Dialog, DialogContentText, DialogContent, DialogActions, Typography, Grid, Card, CardMedia, Paper } from '@mui/material';
+import { Container,Link, IconButton, Avatar, CardHeader, DialogTitle, Button, Dialog, DialogContentText, DialogContent, DialogActions, Typography, Grid, Card, CardMedia, Paper } from '@mui/material';
 
 
 
@@ -22,11 +22,14 @@ const PlantDetails = ({ }) => {
   const { state } = useLocation();
   const nav = useNavigate();
   console.log(state)
-  const [like, setLike] = useState(false)
-  const [userInfo, setUserInfo] = useState()
+  const [like, setLike] = useState(state.like)
+  const [item,setItem] = useState(state.item);
+  const [isHover,setHover] = useState(false);
+  const myUserInfo = useSelector((myStore) =>
+  myStore.userInfoSlice)
   const [likesCount, setlikesCount] = useState(state.likes)
 
-  const [center, setCenter] = useState({ lat: state.mapLocation.lat.$numberDecimal, lng: state.mapLocation.long.$numberDecimal });
+  const [center, setCenter] = useState({ lat: state.item.mapLocation.lat.$numberDecimal, lng: state.item.mapLocation.long.$numberDecimal });
   const [navigation, setNavigation] = useState({});
   const ZOOM_LEVEL = 9;
   const mapRef = useRef();
@@ -44,8 +47,8 @@ const PlantDetails = ({ }) => {
       nav("/")
     }
     else {
-      let url = API_URL + "/plants/editLike/" + state._id;
-      let url2 = API_URL + "/plants/deleteLike/" + state._id;
+      let url = API_URL + "/plants/editLike/" + state.item._id;
+
       try {
         let resp = await doApiMethod(url, "PATCH")
         setlikesCount(resp.data.likes)
@@ -75,66 +78,68 @@ const PlantDetails = ({ }) => {
   };
 
 
-  useEffect( () => {
-    
-     doApi();
-console.log(userInfo)
-
-    doApiNavigation();
-    
+  useEffect(() => {
 
 
-  }, [])
 
-  const doApi = async () => {
-    let url = API_URL + "/users/myInfo";
-    try {
-
-      let resp = await doApiGet(url);
-      console.log(resp.data);
-      setUserInfo(resp.data)
-          if (state.likesList.includes(resp.data._id)) {
-      setLike(true)
-    }
     setlikesCount(state.likes)
 
-    }
-    catch (err) {
-      console.log(err);
-      alert("there problem ,try again later")
-      nav("/")
-    }
+    doApiPlantDetailes();
 
-  }
 
-  const doApiNavigation = async () => {
-    let url = API_URL + "/upload/navigation";
+  }, [like])
+
+  const doApiPlantDetailes = async() => {
+    let url = API_URL + "/plants/single/" + state.item._id;
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      setNavigation(resp.data);
+      console.log(resp.data.plantInfo);
+      console.log(item)
+      setItem(resp.data.plantInfo);
+      setNavigation(resp.data.navigation)
+
     }
     catch (err) {
       console.log(err);
       alert("there problem ,try again later")
+
     }
+
   }
+
+
+
+  const handleHover = () => {
+    setHover(true);
+    
+  }
+  const handleOverLeave =() => {
+    setHover(false);
+  }
+  const onClickUser = () => {
+    nav(
+      '/user/userDetails',{
+      state: state.item.user_id
+    });
+  }
+
 
   return (
     <Container sx={{ marginTop: "10px" }}>
-
       <Card sx={{ marginTop: "20px" }}>
         <CardHeader
           sx={{ background: "#efefef", marginBottom: "20px" }}
           avatar={
-            <Avatar aria-label="recipe" src={navigation.previewAvatar + state.user_id.img_url_preview}>
+            <Avatar aria-label="recipe" src={navigation.previewAvatar + state.item.user_id.img_url_preview}>
 
             </Avatar>
           }
 
 
-          title={state.user_id.name}
-          subheader={state.date_created}
+          title={
+            <span onClick={onClickUser} onMouseEnter={handleHover} onMouseLeave={handleOverLeave} style={{cursor:"pointer",textDecoration: isHover? "underLine":"none"}}>{state.item.user_id.name}</span>
+          }
+          subheader={state.item.date_created}
         >
 
         </CardHeader>
@@ -142,7 +147,7 @@ console.log(userInfo)
         <Grid sx={{ display: "flex", flexWrap: "wrap", paddingX: "20px", paddingBottom: "20px" }}>
 
           <Grid sx={{ height: "70vh", width: { xs: "100%", md: "58%" }, marginRight: { md: "20px" } }}>
-            <Grid onClick={handleClickOpen} sx={{ height: "70%", borderRadius: "5px", display: "flex", justifyContent: "right", alignItems: "end", backgroundSize: "cover", cursor: "pointer", backgroundPosition: "center", backgroundImage: `url(${navigation.originalPlant + state.img_url})` }}>
+            <Grid onClick={handleClickOpen} sx={{ height: "70%", borderRadius: "5px", display: "flex", justifyContent: "right", alignItems: "end", backgroundSize: "cover", cursor: "pointer", backgroundPosition: "center", backgroundImage: `url(${navigation.originalPlant + item.img_url})` }}>
               <div style={{ background: "rgba(255, 255, 255, 0.732)", margin: "10px", paddingRight: "10px", borderRadius: "10px" }}>
                 <IconButton onClick={(e) => { e.stopPropagation(); onLike() }} aria-label="add to favorites">
                   {
@@ -158,17 +163,18 @@ console.log(userInfo)
 
                 </IconButton>
                 {
-                  likesCount == 0 ?
+                  
+                  item.likes == 0 ?
                     <></>
                     :
-                    <>{likesCount}</>
+                    <>{item.likes}</>
                 }
               </div>
             </Grid>
             <hr></hr>
             <Grid>
-              <h5><b>{state.name}</b></h5>
-              <Typography>{state.description}</Typography>
+              <h5><b>{item.name}</b></h5>
+              <Typography>{item.description}</Typography>
 
 
             </Grid>
@@ -187,10 +193,10 @@ console.log(userInfo)
 
 
               <div>
-                <Marker position={[state.mapLocation.lat.$numberDecimal, state.mapLocation.long.$numberDecimal]} icon={markerIcon}>
+                <Marker position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>
                   <Popup>
-                    <b>{state.name}</b>
-                    <div style={{ backgroundImage: `url(${navigation.previewPlant + state.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
+                    <b>{item.name}</b>
+                    <div style={{ backgroundImage: `url(${navigation.previewPlant + item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
 
                   </Popup>
                 </Marker>
@@ -221,7 +227,7 @@ console.log(userInfo)
         </DialogTitle> */}
         <DialogContent>
           <div style={{ height: "70vh" }}>
-            <img style={{ maxWidth: "100%", maxHeight: "100%" }} src={navigation.originalPlant + state.img_url}></img>
+            <img style={{ maxWidth: "100%", maxHeight: "100%" }} src={navigation.originalPlant + item.img_url}></img>
 
           </div>
         </DialogContent>
