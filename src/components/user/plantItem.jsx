@@ -20,6 +20,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+
 // import { useHistory } from 'react-router-dom';
 
 
@@ -37,10 +38,10 @@ const ExpandMore = styled((props) => {
 const PlantItem = (props) => {
 
   const nav = useNavigate();
-  const navigationServer = useSelector((myStore) =>
-    myStore.navigationSlice)
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
+  const navigation = useSelector((myStore) =>
+    myStore.navigationSlice)
   let userId = myUserInfo.user._id;
 
   const [like, setLike] = useState(false)
@@ -61,7 +62,7 @@ const PlantItem = (props) => {
     if (props.item.likesList.includes(userId)) {
       setLike(true)
     }
-
+console.log(item)
   }, [])
 
   const onLike = async () => {
@@ -99,7 +100,6 @@ const PlantItem = (props) => {
 
 
   const onClickItem = () => {
-    // nav("/user/plantDetails")
 
     nav(
       '/user/plantDetails', {
@@ -132,7 +132,7 @@ const PlantItem = (props) => {
       <CardHeader
 
         avatar={
-          <Avatar aria-label="recipe" src={navigationServer.navigate.previewAvatar + props.item.user_id.img_url_preview}>
+          <Avatar aria-label="recipe" src={ navigation.navigation.previewAvatar + props.item.user_id.img_url_preview}>
 
           </Avatar>
         }
@@ -154,7 +154,7 @@ const PlantItem = (props) => {
         }}
         component="img"
         // height="500"
-        image={navigationServer.navigate.previewPlant + props.item.img_url_preview}
+        image={props.item.img_url_preview}
         alt="Paella dish"
 
       />

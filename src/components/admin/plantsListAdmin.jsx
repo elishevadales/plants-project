@@ -11,7 +11,6 @@ const PlantsListAdmin = () => {
 
   const [ar, setAr] = useState([]);
   const [querys] = useSearchParams();
-  const [previeImage, setPrevieImage] = useState("");
 
   useEffect(() => {
     doApi();
@@ -27,7 +26,6 @@ const PlantsListAdmin = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      setPrevieImage(resp.data.preview);
     }
     catch (err) {
       console.log(err);
@@ -63,7 +61,7 @@ const PlantsListAdmin = () => {
             
             return(
 
-              <PlantItem previeImage={previeImage} key={item._id} index={i} item={item} doApi={doApi} />
+              <PlantItem key={item._id} index={i} item={item} doApi={doApi} />
             )
           })}
         </tbody>

@@ -68,8 +68,7 @@ const MyInfo = () => {
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
-      nav("/")
+      alert("there is a problem ,try again later")
     }
 
   }

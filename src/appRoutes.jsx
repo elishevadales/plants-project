@@ -15,6 +15,7 @@ import MyPlants from './components/user/myPlants';
 import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
 import UserDetails from './components/user/userDetails';
+import EditPlant from './components/user/editPlant';
 
 // redux
 import { configureStore } from "@reduxjs/toolkit"
@@ -26,8 +27,7 @@ const AppRoutes = () => {
 
   const myStore = configureStore({
     reducer: {
-      userInfoSlice,
-      navigationSlice
+      userInfoSlice,navigationSlice
     }
   })
 
@@ -62,6 +62,7 @@ const AppRoutes = () => {
             <Route path="/user/newPlant" element={<AddPlant />} />
             <Route path="/user/plantDetails" element={<PlantDetails />} />
             <Route path="/user/userDetails" element={<UserDetails />} />
+            <Route path="/user/editPlant" element={<EditPlant />} />
             
           </Route>
 

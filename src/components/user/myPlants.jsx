@@ -14,9 +14,6 @@ const MyPlants = () => {
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
-  const [originalImage, setOriginalImage] = useState("");
-  const [previeImage, setPrevieImage] = useState("");
-  const [previewAvatar, setPreviewAvatar] = useState("");
   const myUserInfo = useSelector((myStore) =>
   myStore.userInfoSlice)
 
@@ -38,10 +35,7 @@ const MyPlants = () => {
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setAr(resp.data.myPlants);
-      setOriginalImage(resp.data.original);
-      setPrevieImage(resp.data.preview);
-      setPreviewAvatar(resp.data.previewAvatar);
+      setAr(resp.data);
 
     }
     catch (err) {
@@ -61,19 +55,14 @@ const MyPlants = () => {
 
 <Container>
 
-
       <div  style={{display:"flex",flexWrap:"wrap", justifyContent:"center"}}>
         {ar.map((item, i) => {
           return (
           
-            <MyPlantItem key={item._id} index={i} item={item} original={originalImage} preview={previeImage} previewAvatar={previewAvatar} />
+            <MyPlantItem key={item._id} index={i} item={item} />
           )
         })}
       </div>
-      <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
-
-      </div>
-
 
     </Container>
 

@@ -25,6 +25,7 @@ import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -41,6 +42,8 @@ const MyPlantItem = (props) => {
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   let userId = myUserInfo.user._id;
+  const navigation = useSelector((myStore) =>
+  myStore.navigationSlice)
 
   const [like, setLike] = useState(false)
   const [likesCount, setlikesCount] = useState(props.item.likes)
@@ -66,7 +69,6 @@ const MyPlantItem = (props) => {
 
 
       let url = API_URL + "/plants/editLike/" + props.item._id;
-      let url2 = API_URL + "/plants/deleteLike/" + props.item._id;
       try {
         let resp = await doApiMethod(url, "PATCH")
         setlikesCount(resp.data.likes)
@@ -92,7 +94,7 @@ const MyPlantItem = (props) => {
 
 
   const onClickItem = () => {
-    nav("/user/plantDetails")
+    nav("/user/editPlant")
 
   }
 
@@ -105,19 +107,19 @@ const MyPlantItem = (props) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    onClickItem();
   };
 
   // end mui
 
-  console.log(props.previewAvatar + "+" + props.item.user_id.img_url_preview)
-  console.log(props.preview + "+" + props.item.img_url_preview)
+
   return (
 
     <Card sx={{ width: { xs: "80%", md: "40%" }, margin: 2 }}>
       <CardHeader
 
         avatar={
-          <Avatar aria-label="recipe" src={props.previewAvatar + props.item.user_id.img_url_preview}>
+          <Avatar aria-label="recipe" src={navigation.navigation.previewAvatar + props.item.user_id.img_url_preview}>
 
           </Avatar>
         }
@@ -167,7 +169,7 @@ const MyPlantItem = (props) => {
         onClick={onClickItem}
         component="img"
         // height="500"
-        image={props.preview + props.item.img_url_preview}
+        image={navigation.navigation.previewPlant + props.item.img_url_preview}
         alt="Paella dish"
 
       />

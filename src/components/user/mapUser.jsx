@@ -23,8 +23,6 @@ const MapUser = () => {
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
   const [userInfo,setUserInfo] =useState();
-  const [originalImage, setOriginalImage] = useState("");
-  const [previeImage, setPreviewImage] = useState("");
   const dispatch = useDispatch();
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
@@ -69,8 +67,6 @@ const MapUser = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      setOriginalImage(resp.data.original);
-      setPreviewImage(resp.data.preview);
     }
     catch (err) {
       console.log(err);
@@ -123,7 +119,7 @@ const MapUser = () => {
                       <Marker position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>
                         <Popup>
                           <b style={{cursor:"pointer"}} onClick={() => onClickItem(item)}>{item.name}</b>
-                          <div onClick={() => onClickItem(item)} style={{ cursor:"pointer",backgroundImage: `url(${previeImage + item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
+                          <div onClick={() => onClickItem(item)} style={{ cursor:"pointer",backgroundImage: `url(${item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
 
                         </Popup>
                       </Marker>

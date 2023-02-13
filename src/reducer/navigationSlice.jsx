@@ -1,20 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+
 const initValue = {
-    navigate: {
+    navigation: {
+
 
     }
 
 
 }
+
 const navigationSlice = createSlice({
     name: "navigation",
     initialState: initValue,
     reducers: {
-        updateNavigate: (state, actions) => {
-            state.navigate = { ...actions.payload.update }
+        updateNavigation: (state, actions) => {
+            state.navigation = { ...actions.payload.update }
         }
-
     }
 })
-export const { updateNavigate } = navigationSlice.actions;
+
+export const { updateNavigation } = navigationSlice.actions;
 export default navigationSlice.reducer;

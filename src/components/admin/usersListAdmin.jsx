@@ -10,8 +10,6 @@ import styles from './css/usersListAdmin.module.css'
 const UsersListAdmin = () => {
 
   const [ar,setAr] = useState([]);
-  const [originalImage,setOriginalImage] = useState("");
-  const [previeImage,setPrevieImage] = useState("");
 
   useEffect(() => {
     doApi();
@@ -23,12 +21,6 @@ const UsersListAdmin = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      setOriginalImage(resp.data.original);
-      setPrevieImage(resp.data.preview);
-      console.log(originalImage);
-      console.log(previeImage);
-      console.log(resp.data.original);
-      console.log(resp.data.preview);
       console.log(resp);
     }
     catch(err){
@@ -61,7 +53,7 @@ const UsersListAdmin = () => {
         <tbody>
           {ar.map((item,i) => {
             return(
-              <UserItem key={item._id} doApi={doApi} index={i} item={item} original={originalImage} preview={previeImage}/>
+              <UserItem key={item._id} doApi={doApi} index={i} item={item}/>
             )
           })}
         </tbody>

@@ -8,52 +8,25 @@ import btnStyles from "./css/addPlantBtn.module.css"
 import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
 import options from '../../constants/plantsNames'
-import { useSelector, useDispatch } from 'react-redux';
-import { updateNavigate} from '../../reducer/navigationSlice';
-
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-
 import {IconButton,Input } from '@mui/material';
-
-
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 
 
 const HomeUser = () => {
 
-
   const nav = useNavigate();
-  const dispatch = useDispatch();
-  const navigationServer = useSelector((myStore) =>
-  myStore.navigationSlice)
   const [ar, setAr] = useState([]);
-  // const [originalImage, setOriginalImage] = useState("");
-  // const [previeImage, setPrevieImage] = useState("");
-  // const [previewAvatar, setPreviewAvatar] = useState("");
 
 
   useEffect(() => {
-
     if (!localStorage[TOKEN_NAME]) {
       nav("/")
     }
     else {
       doApi();
     }
-    console.log(navigationServer.navigate)
 
   }, [])
 
@@ -63,21 +36,6 @@ const HomeUser = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      // setOriginalImage(resp.data.original);
-      // setPrevieImage(resp.data.preview);
-      // setPreviewAvatar(resp.data.previewAvatar);
-
-
-      dispatch(updateNavigate({
-        update: {
-          previewAvatar: resp.data.previewAvatar,
-          originalAvatar: resp.data.originalAvatar,
-          previewPlant: resp.data.preview,
-          originalPlant: resp.data.original
-
-        }
-
-      }))
       
 
     }
@@ -92,8 +50,6 @@ const HomeUser = () => {
   const onPlusBtn = () => {
     nav("/user/newPlant")
   }
-
-
 
 
   return (

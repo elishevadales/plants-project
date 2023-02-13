@@ -6,6 +6,7 @@ import { GiCottonFlower } from 'react-icons/gi';
 import ConfirmButton from '../general/confirmButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserInfo } from '../../reducer/userInfoSlice';
+import {updateNavigation} from '../../reducer/navigationSlice';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -53,15 +54,15 @@ const HeaderUser = () => {
       nav("/")
     }
     else {
-      doApi();
+      doApiMyInfo();
+      doApiNavigation();
     }
 
   }, [])
 
-  const doApi = async () => {
+  const doApiMyInfo = async () => {
     let url = API_URL + "/users/myInfo";
     try {
-      // console.clear();
       let resp = await doApiGet(url);
       console.log(resp.data);
       dispatch(updateUserInfo({
@@ -72,10 +73,28 @@ const HeaderUser = () => {
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
-      nav("/")
+      alert("there is a problem ,try again later")
+      
     }
 
+
+  }
+
+  const doApiNavigation = async() => {
+    let url = API_URL + "/upload/navigation";
+    try{
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      dispatch(updateNavigation({
+        update: resp.data
+
+      }))
+    }
+    catch (err) {
+      console.log(err);
+      alert("there is a problem ,try again later")
+      
+    }
   }
 
   const onClick = () => {
