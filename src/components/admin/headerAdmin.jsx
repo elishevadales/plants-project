@@ -166,6 +166,11 @@ const HeaderAdmin = () => {
                       <Typography textAlign="center">Map</Typography>
                     </MenuItem>
                   </Link>
+                  <Link to="/admin/newPlant">
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">Add-plant</Typography>
+                    </MenuItem>
+                  </Link>
                 </Box>
 
               </Menu>
@@ -227,6 +232,14 @@ const HeaderAdmin = () => {
                   sx={{ my: 2, color: 'black', display: 'block' }}
                 >
                   Map
+                </Button>
+              </Link>
+              <Link to="/admin/newPlant">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  Add-plant
                 </Button>
               </Link>
 

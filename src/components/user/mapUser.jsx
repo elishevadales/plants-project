@@ -15,14 +15,14 @@ import { Container, DialogTitle, Button, Dialog, DialogContentText, DialogConten
 
 
 
-const MapUser = () => {
+const MapUser = (props) => {
 
 
 
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
-  const [userInfo,setUserInfo] =useState();
+  const [userInfo, setUserInfo] = useState();
   const dispatch = useDispatch();
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
@@ -41,7 +41,7 @@ const MapUser = () => {
     doApiMyInfo();
   }, [])
 
-  const doApiMyInfo = async() => {
+  const doApiMyInfo = async () => {
     let url = API_URL + "/users/myInfo";
     try {
 
@@ -51,7 +51,7 @@ const MapUser = () => {
         update: resp.data
 
       }))
-      
+
 
     }
     catch (err) {
@@ -60,7 +60,7 @@ const MapUser = () => {
 
     }
   }
-  
+
   const doApi = async () => {
     let url = API_URL + "/plants";
     try {
@@ -82,18 +82,28 @@ const MapUser = () => {
     nav("/user/newPlant")
   }
 
-  const onClickItem = (item) => {
+  const onClickItemUser = (item) => {
     console.log(item.likesList)
     console.log(myUserInfo)
-      nav(
-        '/user/plantDetails',{
-        state: {item:item,
-        like: item.likesList.includes(myUserInfo.user._id)? true : false}
-      });
+    nav(
+      '/user/plantDetails', {
+      state: {
+        item: item,
+        like: item.likesList.includes(myUserInfo.user._id) ? true : false
+      }
+    });
+  }
 
-
-
-      
+  const onClickItemAdmin = (item) => {
+    console.log(item.likesList)
+    console.log(myUserInfo)
+    nav(
+      '/admin/plantDetails', {
+      state: {
+        item: item,
+        like: item.likesList.includes(myUserInfo.user._id) ? true : false
+      }
+    });
   }
 
 
@@ -118,12 +128,25 @@ const MapUser = () => {
                     <div key={i}>
                       <Marker position={[item.mapLocation.lat.$numberDecimal, item.mapLocation.long.$numberDecimal]} icon={markerIcon}>
                         <Popup>
-                          <b style={{cursor:"pointer"}} onClick={() => onClickItem(item)}>{item.name}</b>
-                          <div onClick={() => onClickItem(item)} style={{ cursor:"pointer",backgroundImage: `url(${item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
+
+                          {
+                            props.role == "admin" ?
+                              <>
+                                <b style={{ cursor: "pointer" }} onClick={() => onClickItemAdmin(item)}>{item.name}</b>
+                                <div onClick={() => onClickItemAdmin(item)} style={{ cursor: "pointer", backgroundImage: `url(${item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
+                              </>
+
+                              :
+                              <>
+                                <b style={{ cursor: "pointer" }} onClick={() => onClickItemUser(item)}>{item.name}</b>
+                                <div onClick={() => onClickItemUser(item)} style={{ cursor: "pointer", backgroundImage: `url(${item.img_url_preview})`, height: 100, width: 100, backgroundSize: "cover", backgroundPosition: "center" }} />
+                              </>
+                          }
+
 
                         </Popup>
                       </Marker>
-                      
+
                     </div>
 
                   )

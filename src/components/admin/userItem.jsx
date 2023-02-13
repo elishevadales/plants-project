@@ -7,6 +7,8 @@ import ConfirmButton from '../general/confirmButton';
 
 const UserItem = (props) => {
     let item = props.item;
+    let date = item.date_created.slice(8, 10) + "/" + item.date_created.slice(5, 7) + "/" + item.date_created.slice(0, 4);
+
 
     const onRoleClick = async () => {
         let bodyData;
@@ -78,7 +80,7 @@ const UserItem = (props) => {
             <td>{item.name}</td>
             <td>{item.email}</td>
             <td><img src={item.img_url_preview} height="60" alt="pic"/></td>
-            <td>{item.date_created}</td>
+            <td>{date}</td>
             <td>
                 {
                     item.role == 'admin' ?

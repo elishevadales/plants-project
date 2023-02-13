@@ -17,7 +17,7 @@ import { Container, Link, IconButton, Avatar, CardHeader, DialogTitle, Button, D
 
 
 
-const PlantDetails = ({ }) => {
+const PlantDetails = (props) => {
 
   const { state } = useLocation();
   const nav = useNavigate();
@@ -25,6 +25,7 @@ const PlantDetails = ({ }) => {
   const [like, setLike] = useState(state.like)
   const [item, setItem] = useState(state.item);
   const [isHover, setHover] = useState(false);
+  const date = state.item.date_created.slice(8, 10) + "/" + state.item.date_created.slice(5, 7) + "/" + state.item.date_created.slice(0, 4);
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   const [likesCount, setlikesCount] = useState(state.likes)
@@ -135,9 +136,13 @@ const PlantDetails = ({ }) => {
 
 
           title={
+            props.role == "admin"?
+            <span>{state.item.user_id.name}</span>
+            :
             <span onClick={onClickUser} onMouseEnter={handleHover} onMouseLeave={handleOverLeave} style={{ cursor: "pointer", textDecoration: isHover ? "underLine" : "none" }}>{state.item.user_id.name}</span>
+
           }
-          subheader={state.item.date_created}
+          subheader={date}
         >
 
         </CardHeader>

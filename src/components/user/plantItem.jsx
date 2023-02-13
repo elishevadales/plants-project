@@ -139,8 +139,7 @@ console.log(item)
 
         title={
           <span onClick={onClickUser} onMouseEnter={handleHover} onMouseLeave={handleOverLeave} style={{ cursor: "pointer", textDecoration: isHover ? "underLine" : "none" }}>{props.item.user_id.name}</span>}
-        subheader={date
-        }
+        subheader={date}
       />
       <CardMedia
         onClick={onClickItem}

@@ -16,6 +16,7 @@ import AddPlant from './components/user/addPlant';
 import PlantDetails from './components/user/plantDetails';
 import UserDetails from './components/user/userDetails';
 import EditPlant from './components/user/editPlant';
+import UserPosts from './components/user/userPosts';
 
 // redux
 import { configureStore } from "@reduxjs/toolkit"
@@ -49,20 +50,24 @@ const AppRoutes = () => {
             <Route path="/admin" element={<UsersListAdmin />} />
             <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
             <Route path="/admin/myInfo" element={<MyInfo />} />
-            <Route path="/admin/map" element={<MapUser />} />
+            <Route path="/admin/map" element={<MapUser  role="admin"/>} />
+            <Route path="/admin/newPlant" element={<AddPlant role="admin"/>} />
+            <Route path="/admin/plantDetails" element={<PlantDetails role="admin"/>} />
+          
           </Route>
 
           {/* User */}
           <Route path="/user" element={<LayoutUser />}>
           
             <Route path="/user" element={<HomeUser />} />
-            <Route path="/user/map" element={<MapUser />} />
+            <Route path="/user/map" element={<MapUser   role="user" />} />
             <Route path="/user/myPlants" element={<MyPlants />} />
             <Route path="/user/myInfo" element={<MyInfo />} />
             <Route path="/user/newPlant" element={<AddPlant />} />
-            <Route path="/user/plantDetails" element={<PlantDetails />} />
+            <Route path="/user/plantDetails" element={<PlantDetails role="user" />} />
             <Route path="/user/userDetails" element={<UserDetails />} />
             <Route path="/user/editPlant" element={<EditPlant />} />
+            <Route path="/user/userPosts" element={<UserPosts />} />
             
           </Route>
 

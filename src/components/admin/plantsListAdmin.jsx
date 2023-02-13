@@ -50,7 +50,7 @@ const PlantsListAdmin = () => {
             <th>Likes</th>
             <th>Coments</th>
             <th>Active</th>
-            <th>Date</th>
+            <th>Date-created</th>
             <th>UserId</th>
             <th>User Name</th>
             <th>Edit/Del</th>

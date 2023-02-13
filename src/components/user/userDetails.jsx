@@ -2,6 +2,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom';
 import { Button, Paper, Container, Box, Grid, Dialog, DialogContent, DialogActions, DialogTitle } from '@mui/material';
 import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { API_URL, doApiGet } from '../../services/apiService';
 
@@ -9,6 +10,7 @@ import { API_URL, doApiGet } from '../../services/apiService';
 const UserDetails = () => {
     const { state } = useLocation();
     const [open, setOpen] = React.useState(false);
+    const nav = useNavigate();
     const date = state.date_created.slice(8, 10) + "/" + state.date_created.slice(5, 7) + "/" + state.date_created.slice(0, 4);
 
     const navigation = useSelector((myStore) =>
@@ -29,7 +31,12 @@ const UserDetails = () => {
         setOpen(false);
     };
 
-
+const onClickPosts = () => {
+    nav(
+        '/user/userPosts', {
+        state
+      });
+}
 
     return (
         <Container >
@@ -61,7 +68,9 @@ const UserDetails = () => {
                     
                 </Grid>
                 <Box textAlign='center'>
-                    <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }}>show {state.name}'s posts</Button>
+                    <Button onClick={onClickPosts} style={{ background: "#57b846", color: "white", marginTop: "20px" }}>
+                            show {state.name}'s posts
+                        </Button>
                 </Box>
 
             </Paper>

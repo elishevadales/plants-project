@@ -39,6 +39,7 @@ const ExpandMore = styled((props) => {
 
 const MyPlantItem = (props) => {
   const nav = useNavigate();
+  const date = props.item.date_created.slice(8, 10) + "/" + props.item.date_created.slice(5, 7) + "/" + props.item.date_created.slice(0, 4);
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   let userId = myUserInfo.user._id;
@@ -119,7 +120,7 @@ const MyPlantItem = (props) => {
       <CardHeader
 
         avatar={
-          <Avatar aria-label="recipe" src={navigation.navigation.previewAvatar + props.item.user_id.img_url_preview}>
+          <Avatar aria-label="recipe" src={myUserInfo.user.img_url_preview}>
 
           </Avatar>
         }
@@ -152,7 +153,7 @@ const MyPlantItem = (props) => {
           </div>
         }
         title={props.item.user_id.name}
-        subheader={props.item.date_created}
+        subheader={date}
       >
 
       </CardHeader>

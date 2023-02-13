@@ -3,7 +3,6 @@ import { Button, Container, Box, Grid } from '@mui/material';
 import PlantItem from './plantItem'
 import { useState, useEffect } from 'react';
 import { API_URL, doApiGet, TOKEN_NAME } from '../../services/apiService';
-import styles from "./css/homeUser.module.css";
 import btnStyles from "./css/addPlantBtn.module.css"
 import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
@@ -78,7 +77,7 @@ const HomeUser = () => {
       </Grid>
       
 
-      <div style={{ justifyContent: "center" }} className={styles.allPlants}>
+      <div style={{display:"flex",flexWrap:"wrap", justifyContent: "center" }}>
       
         {ar.map((item, i) => {
 

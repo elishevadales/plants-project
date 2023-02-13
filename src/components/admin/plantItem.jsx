@@ -1,9 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { API_URL,doApiMethod } from '../../services/apiService';
 
 const PlantItem = (props) => {
 
-    
+    const myUserInfo = useSelector((myStore) =>
+    myStore.userInfoSlice)
+    const nav = useNavigate();
 
     const onDelClick = async () => {
         if (window.confirm("Are you sure you want to delete " + item.name + "?")) {
@@ -24,12 +28,26 @@ const PlantItem = (props) => {
     }
 
     let item = props.item;
+    let date = item.date_created.slice(8, 10) + "/" + item.date_created.slice(5, 7) + "/" + item.date_created.slice(0, 4);
+    
+    
+    const onClickItemAdmin = (item) => {
+        console.log(item.likesList)
+        console.log(myUserInfo)
+        nav(
+          '/admin/plantDetails', {
+          state: {
+            item: item,
+            like: item.likesList.includes(myUserInfo.user._id) ? true : false
+          }
+        });
+      }
 
     return (
         
         <tr>
             <td>{props.index + 1}</td>
-            <td>{item.name}</td>
+            <td><span style={{cursor:"pointer"}} onClick={() => onClickItemAdmin(item)}>{item.name}</span></td>
             <td>
             <span style={{fontWeight:"bold"}}>lat: </span>{item.mapLocation.lat.$numberDecimal} <br/>
             <span style={{fontWeight:"bold"}}>long: </span>{item.mapLocation.long.$numberDecimal}
@@ -38,7 +56,7 @@ const PlantItem = (props) => {
             <td>{item.likes} </td>
             <td>{item.comments} </td>
             <td>{String(item.active)} </td>
-            <td>{item.date_created} </td>
+            <td>{date} </td>
             <td>{item.user_id._id} </td>
             <td>{item.user_id.name} </td>
 

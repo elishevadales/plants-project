@@ -183,6 +183,11 @@ const HeaderUser = () => {
                       <Typography textAlign="center">My-plants</Typography>
                     </MenuItem>
                   </Link>
+                  <Link to="/user/newPlant">
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">Add-plant</Typography>
+                    </MenuItem>
+                  </Link>
                 </Box>
 
               </Menu>
@@ -236,6 +241,14 @@ const HeaderUser = () => {
                   sx={{ my: 2, color: 'black', display: 'block' }}
                 >
                   My-plants
+                </Button>
+              </Link>
+              <Link to="/user/newPlant">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  Add-plant
                 </Button>
               </Link>
 

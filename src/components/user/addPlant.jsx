@@ -14,7 +14,7 @@ import options from '../../constants/plantsNames'
 
 
 
-const AddPlant = () => {
+const AddPlant = (props) => {
   const nav = useNavigate();
   const [photoFlag, setPhotoFlag] = useState(false)
   const [locationFlag, setLocationFlag] = useState(false)
@@ -37,7 +37,7 @@ const AddPlant = () => {
 
   // add location
   const componentDidMount = () => {
-    
+
     navigator.geolocation.getCurrentPosition((position) => {
       let updatePlant = { mapLocation: { "lat": position.coords.latitude, "long": position.coords.longitude } };
 
@@ -104,7 +104,13 @@ const AddPlant = () => {
       console.log(resp.data)
       if (resp.data.status) {
         alert("file uploaded")
-        nav("/user")
+        if (props.role == "admin") {
+          nav("/admin")
+        }
+        else {
+          nav("/user")
+        }
+
 
       }
       else {
