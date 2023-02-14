@@ -11,6 +11,8 @@ import { API_URL, TOKEN_NAME } from '../../services/apiService';
 import { doApiMethod } from '../../services/apiService';
 import axios from 'axios';
 import options from '../../constants/plantsNames'
+import Geocode from "react-geocode";
+// import geocoder from "geocoder"
 
 
 
@@ -20,13 +22,27 @@ const AddPlant = (props) => {
   const [locationFlag, setLocationFlag] = useState(false)
   const photoRef = useRef();
   const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm();
-
   const [plant, setPlant] = useState({ name: "default", mapLocation: { lat: 12345, long: 12345 }, img_file: "default" });
+
+  Geocode.setLanguage("en");
+  Geocode.setRegion("il");
+  Geocode.setLocationType("ROOFTOP");
+  Geocode.enableDebug();
 
   useEffect(() => {
     if (!localStorage[TOKEN_NAME]) {
       nav("/")
     }
+
+    // Geocode.fromLatLng("31.509965", "34.920394").then(
+    //   (response) => {
+    //     const address = response.results[0].formatted_address;
+    //     console.log(address);
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //   }
+    // );
 
   }, [])
 
@@ -51,10 +67,10 @@ const AddPlant = (props) => {
 
 
   const onSub = async (data) => {
-
+    console.log(data)
     let img_file = data.img_file
     delete data.img_file
-    console.log(data)
+    console.log(data.mapLocation.lat)
     console.log(img_file)
     if (img_file.length == 0) {
       return alert("you need to choose file and then upload it")
@@ -66,9 +82,43 @@ const AddPlant = (props) => {
     if (ext_file != "png" && ext_file != "jpeg" && ext_file != "gif" && ext_file != "jpg") {
       return alert("you can send only png, jpeg, gif")
     }
-    await doApiForm(data, img_file);
+    await doApiLocation(data, img_file);
 
 
+
+
+  }
+
+  const doApiLocation = async (data, img_file) => {
+
+    const lat = data.mapLocation.lat;
+    const lng = data.mapLocation.long;
+
+    let url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+    try {
+      let resp = await doApiMethod(url, "GET");
+      
+      if (resp.data.address == undefined) {
+        data.location = "מיקום לא ידוע"
+      }
+      else if (resp.data.address.state != undefined) {
+        data.location = resp.data.address.state
+      }
+      else if (resp.data.address.country != undefined) {
+        data.location = resp.data.address.country
+      }
+      else {
+        data.location = "מיקום לא ידוע"
+      }
+
+      await doApiForm(data, img_file);
+
+
+    }
+    catch (err) {
+      alert("there is an error, try again later")
+      console.log(err);
+    }
 
   }
 
@@ -205,7 +255,7 @@ const AddPlant = (props) => {
                 </div>
               }
               <h4 style={{ color: "#57b846" }}>you can add a description:</h4>
-              <textArea {...register("description")} maxlength="400" className="form-control"></textArea>
+              <textarea {...register("description")} maxLength="400" className="form-control"></textarea>
 
               {/* submit button */}
               <div style={{ display: "flex", justifyContent: "center" }}>

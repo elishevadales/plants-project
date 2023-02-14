@@ -8,8 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
 import options from '../../constants/plantsNames'
 import * as React from 'react';
+
 import { styled } from '@mui/material/styles';
-import {IconButton,Input } from '@mui/material';
+import { IconButton, Input } from '@mui/material';
 
 
 
@@ -25,6 +26,7 @@ const HomeUser = () => {
     }
     else {
       doApi();
+      // doApiMap()
     }
 
   }, [])
@@ -35,16 +37,36 @@ const HomeUser = () => {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
       setAr(resp.data.data);
-      
+
 
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
-      nav("/")
+      alert("there is a problem ,try again later")
     }
-    
+
   }
+
+  // const doApiMap = async () => {
+  //   const apiKey = 'YYHNj1dlE4AVXAs8x1nDC9buHv0Y2ffs';
+  //   const endpoint = 'http://open.mapquestapi.com/geocoding/v1/reverse';
+  //   const lat = 40.712776; // Example latitude
+  //   const lng = -74.005974; // Example longitude
+  //   try {
+  //     let resp = await doApiGet(endpoint, {
+  //       params: {
+  //         key: apiKey,
+  //         location: `${lat},${lng}`
+  //       }
+  //     });
+  //     console.log(resp);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //     alert("there is a problem ,try again later")
+  //   }
+
+  // }
 
   const onPlusBtn = () => {
     nav("/user/newPlant")
@@ -52,19 +74,19 @@ const HomeUser = () => {
 
 
   return (
-    <Container sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-      <Grid sx={{ padding: "20px",width:{md:"60%",xs:"100%"},background:"#57b846",borderRadius:{md:"0 0 30px 30px"},marginBottom:"20px",display:"flex"}}>
+    <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Grid sx={{ padding: "20px", width: { md: "60%", xs: "100%" }, background: "#57b846", borderRadius: { md: "0 0 30px 30px" }, marginBottom: "20px", display: "flex" }}>
 
         <div className='input-group'>
-          <div className='form-outline' style={{display:"flex"}}>
-            <input  style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
+          <div className='form-outline' style={{ display: "flex" }}>
+            <input style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
           </div>
-          <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black",border:"black" }} type='button' className='btn btn-primary'>
+          <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black", border: "black" }} type='button' className='btn btn-primary'>
             <FaSearch />
           </button>
         </div>
 
-        <select style={{width:"300px", height: "35px"}} className="form-select">
+        <select style={{ width: "300px", height: "35px" }} className="form-select">
           <option value="">all plants</option>
           {options.map((item, i) => {
             return (
@@ -73,12 +95,12 @@ const HomeUser = () => {
           })}
 
         </select>
-        
-      </Grid>
-      
 
-      <div style={{display:"flex",flexWrap:"wrap", justifyContent: "center" }}>
-      
+      </Grid>
+
+
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+
         {ar.map((item, i) => {
 
           return (

@@ -52,6 +52,7 @@ const PlantItem = (props) => {
             <span style={{fontWeight:"bold"}}>lat: </span>{item.mapLocation.lat.$numberDecimal} <br/>
             <span style={{fontWeight:"bold"}}>long: </span>{item.mapLocation.long.$numberDecimal}
             </td>
+            <td>{item.location}</td>
             <td><img src={item.img_url_preview} height="40" alt="pic"/></td>
             <td>{item.likes} </td>
             <td>{item.comments} </td>

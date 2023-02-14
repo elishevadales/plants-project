@@ -46,6 +46,7 @@ const PlantsListAdmin = () => {
             <th>#</th>
             <th>Name</th>
             <th>Map Location</th>
+            <th>General Location</th>
             <th>Img_url</th>
             <th>Likes</th>
             <th>Coments</th>
