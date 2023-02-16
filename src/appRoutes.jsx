@@ -17,6 +17,7 @@ import PlantDetails from './components/user/plantDetails';
 import UserDetails from './components/user/userDetails';
 import EditPlant from './components/user/editPlant';
 import UserPosts from './components/user/userPosts';
+import CheckAdmin from './components/admin/checkAdmin';
 
 // redux
 import { configureStore } from "@reduxjs/toolkit"

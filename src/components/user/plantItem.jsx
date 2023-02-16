@@ -62,7 +62,7 @@ const PlantItem = (props) => {
     if (props.item.likesList.includes(userId)) {
       setLike(true)
     }
-console.log(item)
+// console.log(item)
   }, [])
 
   const onLike = async () => {

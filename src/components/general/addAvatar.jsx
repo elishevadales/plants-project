@@ -3,12 +3,17 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
 import React, { useRef } from 'react'
-import { API_URL ,TOKEN_NAME} from '../../services/apiService';
+import { API_URL ,doApiGet,TOKEN_NAME} from '../../services/apiService';
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from '../../reducer/userInfoSlice';
+
 
 const AddAvatar = (props) => {
 
     const fileRef = useRef();
     const nav = useNavigate();
+    const dispatch = useDispatch();
+   
 
     const onSub = (e) => {
       e.preventDefault();
@@ -45,6 +50,7 @@ const AddAvatar = (props) => {
           if(resp.data.status){
             alert("file uploaded")
             // props.doApi();
+            // doApi();
             props.handleClose();
           }
         }
@@ -53,6 +59,8 @@ const AddAvatar = (props) => {
           console.log(err);
         }
       }
+
+
 
     return (
         <div>

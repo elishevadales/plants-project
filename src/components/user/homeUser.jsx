@@ -18,6 +18,8 @@ const HomeUser = () => {
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
+  const selectRef = React.useRef();
+  const inputRef = React.useRef();
 
 
   useEffect(() => {
@@ -72,6 +74,39 @@ const HomeUser = () => {
     nav("/user/newPlant")
   }
 
+  const searchByName = async (ref) => {
+
+    let url;
+    if (ref == "input") {
+      if (inputRef.current.value == "") {
+        doApi();
+      }
+      url = API_URL + "/plants/searchByName?search=" + inputRef.current.value;
+
+
+    }
+    else if (ref == "select") {
+      if (selectRef.current.value == "") {
+        doApi();
+      }
+      url = API_URL + "/plants/searchByName?search=" + selectRef.current.value;
+
+
+    }
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setAr(resp.data);
+      console.log(ar)
+    }
+    catch (err) {
+      console.log(err);
+      alert("there is a problem ,try again later")
+    }
+
+
+  }
+
 
   return (
     <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -79,14 +114,14 @@ const HomeUser = () => {
 
         <div className='input-group'>
           <div className='form-outline' style={{ display: "flex" }}>
-            <input style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
+            <input ref={inputRef} onChange={() => searchByName("input")} style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
           </div>
           <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black", border: "black" }} type='button' className='btn btn-primary'>
             <FaSearch />
           </button>
         </div>
 
-        <select style={{ width: "300px", height: "35px" }} className="form-select">
+        <select ref={selectRef} onChange={() => searchByName("select")} style={{ width: "300px", height: "35px" }} className="form-select">
           <option value="">all plants</option>
           {options.map((item, i) => {
             return (
@@ -97,8 +132,10 @@ const HomeUser = () => {
         </select>
 
       </Grid>
-
-
+      {ar.length == 0 ?
+        <h1>No matching items were found</h1>
+        :
+        <></>}
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 
         {ar.map((item, i) => {

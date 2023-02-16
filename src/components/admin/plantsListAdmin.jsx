@@ -36,7 +36,6 @@ const PlantsListAdmin = () => {
   return (
     <div>
       <Container>
-      <CheckAdmin />
 
       <h1>List of plants</h1>
       <PageNav urlPageApi={API_URL+"/plants/count"} perPage={5} navToDir="/admin/plantsList?page=" cssClass="btn btn-info ms-2"  />

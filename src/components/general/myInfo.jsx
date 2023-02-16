@@ -145,7 +145,7 @@ const MyInfo = () => {
 
               <div>
 
-                <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo?.user?.img_url_preview})`,backgroundPosition:"center" ,backgroundSize:"cover"}}></div>
+                <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo.user.img_url_preview})`,backgroundPosition:"center" ,backgroundSize:"cover"}}></div>
 
 
                 <div style={{ display: "flex", justifyContent: "end" }}>

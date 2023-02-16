@@ -18,7 +18,7 @@ const UserPosts = () => {
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
   const navigation = useSelector((myStore) =>
-  myStore.navigationSlice)
+    myStore.navigationSlice)
   const userId = state._id
   console.log(state)
 
@@ -49,30 +49,10 @@ const UserPosts = () => {
     nav("/user/newPlant")
   }
 
+
+
   return (
     <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Grid sx={{ padding: "20px", width: { md: "60%", xs: "100%" }, background: "#57b846", borderRadius: { md: "0 0 30px 30px" }, marginBottom: "20px", display: "flex" }}>
-
-        <div className='input-group'>
-          <div className='form-outline' style={{ display: "flex" }}>
-            <input style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
-          </div>
-          <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black", border: "black" }} type='button' className='btn btn-primary'>
-            <FaSearch />
-          </button>
-        </div>
-
-        <select style={{ width: "300px", height: "35px" }} className="form-select">
-          <option value="">all plants</option>
-          {options.map((item, i) => {
-            return (
-              <option key={i} value={item.value}>{item.label}</option>
-            )
-          })}
-
-        </select>
-
-      </Grid>
 
 
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>

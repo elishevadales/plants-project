@@ -33,7 +33,6 @@ const UsersListAdmin = () => {
 
   return (
     <main>
-      <CheckAdmin/>
       <Container>
         
       <h1 style={{textAlign:"center", color:"#57b846"}}>List of users in systems:</h1>

@@ -1,12 +1,14 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Footer from '../general/footer'
+import CheckAdmin from './checkAdmin'
 import HeaderAdmin from './headerAdmin'
 
 const LayoutAdmin = () => {
   return (
     <div>
         <header>
+          <CheckAdmin/>
             <HeaderAdmin/>
         </header>
 
