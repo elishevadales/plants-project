@@ -11,9 +11,6 @@ import { updateUserInfo } from '../../reducer/userInfoSlice';
 const AddAvatar = (props) => {
 
     const fileRef = useRef();
-    const nav = useNavigate();
-    const dispatch = useDispatch();
-   
 
     const onSub = (e) => {
       e.preventDefault();

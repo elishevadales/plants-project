@@ -50,7 +50,7 @@ const Login = () => {
       }
       else if (resp.data.role == "admin") {
         console.clear();
-        nav("/admin")
+        nav("/admin/plantsList")
       }
       else {
         nav("/user")

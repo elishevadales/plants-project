@@ -53,9 +53,9 @@ const PlantItem = (props) => {
             <span style={{fontWeight:"bold"}}>long: </span>{item.mapLocation.long.$numberDecimal}
             </td>
             <td>{item.location}</td>
-            <td><img src={item.img_url_preview} height="40" alt="pic"/></td>
+            <td><img style={{cursor:"pointer"}} onClick={() => onClickItemAdmin(item)} src={item.img_url_preview} height="40" alt="pic"/></td>
             <td>{item.likes} </td>
-            <td>{item.comments} </td>
+            {/* <td>{item.comments} </td> */}
             <td>{String(item.active)} </td>
             <td>{date} </td>
             <td>{item.user_id._id} </td>

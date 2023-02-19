@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
-import { API_URL } from '../../services/apiService'
+import { API_URL, TOKEN_NAME } from '../../services/apiService'
 import { doApiMethod } from '../../services/apiService'
 import { style } from '@mui/system'
 import styles from './css/signUp.module.css'
 import { Button, Box } from '@mui/material'
+import { Login } from '@mui/icons-material'
 
 
 const SignUp = () => {
@@ -27,7 +28,12 @@ const SignUp = () => {
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
       // return to login page
-      nav("/")
+      // nav("/")
+      
+      //get in site
+      console.log(bodyData)
+      delete bodyData.name
+      login(bodyData);
     }
     catch (err) {
       // if(){
@@ -35,6 +41,36 @@ const SignUp = () => {
       // }
       console.log(err.response);
       alert("sign-up problem");
+    }
+  }
+
+  const login = async(bodyData) => {
+    let url = API_URL + "/users/login"
+    try {
+      let resp = await doApiMethod(url, "POST", bodyData);
+      console.log(resp.data)
+      // delete old token
+      localStorage.removeItem(TOKEN_NAME);
+      // לשמור את הטוקן
+      localStorage.setItem(TOKEN_NAME, resp.data.token);
+      // לשגר לעמוד של רשימת המשתמשים
+      if (resp.data.active == false) {
+        alert("Your account is blocked. Please contact the site administrator")
+        nav("/")
+      }
+      else if (resp.data.role == "admin") {
+        console.clear();
+        nav("/admin/plantsList")
+      }
+      else {
+        nav("/user")
+      }
+
+      console.log(resp.data)
+    }
+    catch (err) {
+      console.log(err.response);
+      alert("User or password worng, or service down");
     }
   }
 

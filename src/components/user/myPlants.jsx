@@ -8,6 +8,7 @@ import MyPlantItem from './myPlantItem'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { API_URL, doApiGet, TOKEN_NAME } from '../../services/apiService';
+import { Puff } from 'react-loading-icons'
 
 
 const MyPlants = () => {
@@ -56,6 +57,15 @@ const MyPlants = () => {
 <Container>
 
       <div  style={{display:"flex",flexWrap:"wrap", justifyContent:"center"}}>
+      {ar.length == 0?
+        <div style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+
+          <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />
+        </div>
+        // <h1>No matching items were found</h1>
+
+        :
+        <></>}
         {ar.map((item, i) => {
           return (
           

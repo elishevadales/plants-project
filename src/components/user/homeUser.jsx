@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
 import options from '../../constants/plantsNames'
 import * as React from 'react';
-
+import { Puff } from 'react-loading-icons'
 import { styled } from '@mui/material/styles';
 import { IconButton, Input } from '@mui/material';
 
@@ -109,49 +109,63 @@ const HomeUser = () => {
 
 
   return (
-    <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Grid sx={{ padding: "20px", width: { md: "60%", xs: "100%" }, background: "#57b846", borderRadius: { md: "0 0 30px 30px" }, marginBottom: "20px", display: "flex" }}>
-
-        <div className='input-group'>
+    <div>
+      <Grid sx={{ padding: "20px", background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex",flexWrap:"wrap",justifyContent:{xs:"space-around",sm:"center"} }}>
+        <Grid sx={{ width: "200px" }}>
+          <input  ref={inputRef} onChange={() => searchByName("input")} id="form1" className="form-control" type="search" placeholder='free search...'></input>
+        </Grid>
+        {/* <div className='input-group' style={{background:"red"}}>
           <div className='form-outline' style={{ display: "flex" }}>
             <input ref={inputRef} onChange={() => searchByName("input")} style={{ height: "35px" }} id="form1" className="form-control" type="search" placeholder='search'></input>
           </div>
           <button style={{ height: "35px", display: "flex", alignItems: "center", background: "black", border: "black" }} type='button' className='btn btn-primary'>
             <FaSearch />
           </button>
-        </div>
+        </div> */}
+        <Grid  sx={{ width: "200px",marginLeft:{sm:"30px"} }}>
+          <select ref={selectRef} onChange={() => searchByName("select")} className="form-select">
+            <option value="">all plants</option>
+            {options.map((item, i) => {
+              return (
+                <option key={i} value={item.value}>{item.label}</option>
+              )
+            })}
 
-        <select ref={selectRef} onChange={() => searchByName("select")} style={{ width: "300px", height: "35px" }} className="form-select">
-          <option value="">all plants</option>
-          {options.map((item, i) => {
-            return (
-              <option key={i} value={item.value}>{item.label}</option>
-            )
-          })}
+          </select>
+        </Grid>
 
-        </select>
 
       </Grid>
-      {ar.length == 0 ?
-        <h1>No matching items were found</h1>
-        :
-        <></>}
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-
-        {ar.map((item, i) => {
-
-          return (
-
-            <PlantItem key={item._id} index={i} item={item} />
-          )
-        })}
-      </div>
-      <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
-
-      </div>
+      <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
 
-    </Container>
+        {ar.length == 0 ?
+          <div style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+
+            <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />
+          </div>
+          // <h1>No matching items were found</h1>
+
+          :
+          <></>}
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+
+          {ar.map((item, i) => {
+
+            return (
+
+              <PlantItem key={item._id} index={i} item={item} />
+            )
+          })}
+        </div>
+        <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
+
+        </div>
+
+
+      </Container>
+    </div>
+
 
   )
 }

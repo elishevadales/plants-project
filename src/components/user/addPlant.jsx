@@ -34,16 +34,6 @@ const AddPlant = (props) => {
       nav("/")
     }
 
-    // Geocode.fromLatLng("31.509965", "34.920394").then(
-    //   (response) => {
-    //     const address = response.results[0].formatted_address;
-    //     console.log(address);
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //   }
-    // );
-
   }, [])
 
   const onInputPhoto = () => {
@@ -53,10 +43,10 @@ const AddPlant = (props) => {
 
   // add location
   const componentDidMount = () => {
-
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position, err) => {
+      console.log(position)
       let updatePlant = { mapLocation: { "lat": position.coords.latitude, "long": position.coords.longitude } };
-
+      console.log(updatePlant)
       setPlant(plant => ({
         ...plant, ...updatePlant
       }))
@@ -70,7 +60,6 @@ const AddPlant = (props) => {
     console.log(data)
     let img_file = data.img_file
     delete data.img_file
-    console.log(data.mapLocation.lat)
     console.log(img_file)
     if (img_file.length == 0) {
       return alert("you need to choose file and then upload it")
@@ -97,7 +86,7 @@ const AddPlant = (props) => {
     let url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
     try {
       let resp = await doApiMethod(url, "GET");
-      
+
       if (resp.data.address == undefined) {
         data.location = "מיקום לא ידוע"
       }
@@ -231,6 +220,8 @@ const AddPlant = (props) => {
               {/* location input */}
               <h4 style={{ color: "#57b846" }}>Location</h4>
               <Button onClick={componentDidMount}>Share current location</Button>
+              {locationFlag == false ? <></> : <BsCheckLg style={{ color: "green", marginLeft: "10px" }} />}
+
               <br />
               {locationFlag == true ?
                 <div>
@@ -242,6 +233,7 @@ const AddPlant = (props) => {
 
                   <label>Longitude:</label>
                   <input required className="form-control" defaultValue={plant.mapLocation.long} {...register("mapLocation.long")}></input>
+
                 </div>
                 :
                 <div>
@@ -258,7 +250,7 @@ const AddPlant = (props) => {
               <textarea {...register("description")} maxLength="400" className="form-control"></textarea>
 
               {/* submit button */}
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ display: "flex", padding: "20px", justifyContent: "center" }}>
                 <Button style={{ background: "#57b846", width: "130px", height: "40px", color: "white" }} type='submit'>Add Plant</Button>
               </div>
 

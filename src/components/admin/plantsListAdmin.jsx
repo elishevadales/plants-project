@@ -48,7 +48,7 @@ const PlantsListAdmin = () => {
             <th>General Location</th>
             <th>Img_url</th>
             <th>Likes</th>
-            <th>Coments</th>
+            {/* <th>Coments</th> */}
             <th>Active</th>
             <th>Date-created</th>
             <th>UserId</th>

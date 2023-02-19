@@ -9,6 +9,7 @@ import { FaSearch } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { API_URL, doApiGet, doApiMethod, TOKEN_NAME } from '../../services/apiService';
 import { useSelector } from 'react-redux';
+import { Puff } from 'react-loading-icons'
 
 
 
@@ -53,7 +54,15 @@ const UserPosts = () => {
 
   return (
     <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {ar.length == 0?
+        <div style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
 
+          <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />
+        </div>
+        // <h1>No matching items were found</h1>
+
+        :
+        <></>}
 
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 

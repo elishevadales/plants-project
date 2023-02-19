@@ -151,7 +151,7 @@ const PlantDetails = (props) => {
 
           <Grid sx={{ height: "70vh", width: { xs: "100%", md: "58%" }, marginRight: { md: "20px" } }}>
             <Grid onClick={handleClickOpen} sx={{ height: "70%", backgroundRepeat: "no-repeat",border:"1px solid grey", borderRadius: "5px", display: "flex", justifyContent: "right", alignItems: "end", backgroundSize: "cover", cursor: "pointer", backgroundPosition: "center", backgroundImage: `url(${item.img_url})` }}>
-              <div style={{ background: "rgba(255, 255, 255, 0.732)", margin: "10px", paddingRight: "10px", borderRadius: "10px" }}>
+              <div style={{ background: "rgba(255, 255, 255, 0.732)", margin: "10px", borderRadius: "10px" }}>
                 <IconButton onClick={(e) => { e.stopPropagation(); onLike() }} aria-label="add to favorites">
                   {
 
@@ -170,7 +170,7 @@ const PlantDetails = (props) => {
                   item.likes == 0 ?
                     <></>
                     :
-                    <>{item.likes}</>
+                    <span style={{ paddingRight: "10px"}}>{item.likes}</span>
                 }
               </div>
             </Grid>

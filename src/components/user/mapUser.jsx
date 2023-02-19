@@ -6,7 +6,7 @@ import { API_URL, doApiGet } from '../../services/apiService';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserInfo } from '../../reducer/userInfoSlice';
-
+import options from '../../constants/plantsNames'
 import L from "leaflet"
 import { GiCottonFlower } from 'react-icons/gi';
 import { Container, DialogTitle, Button, Dialog, DialogContentText, DialogContent, DialogActions, Typography, Grid, Card, CardMedia, Paper } from '@mui/material';
@@ -23,7 +23,9 @@ const MapUser = (props) => {
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
   const [userInfo, setUserInfo] = useState();
+  const selectRef = useRef();
   const dispatch = useDispatch();
+
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   const [center, stCenter] = useState({ lat: 31.893518, lng: 35.082817 });
@@ -39,6 +41,7 @@ const MapUser = (props) => {
 
     doApi();
     doApiMyInfo();
+
   }, [])
 
   const doApiMyInfo = async () => {
@@ -106,11 +109,43 @@ const MapUser = (props) => {
     });
   }
 
+  const searchByName = async () => {
+
+    if (selectRef.current.value == "") {
+      doApi();
+    }
+    let url = API_URL + "/plants/searchByName?search=" + selectRef.current.value;
+
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setAr(resp.data);
+      console.log(ar)
+    }
+    catch (err) {
+      console.log(err);
+      alert("there is a problem ,try again later")
+    }
+  }
+
 
   return (
     <div>
       <div style={{ zIndex: 0 }}>
-        <Container sx={{ pt: 2 }}>
+      <Grid sx={{ padding: "20px", background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex", justifyContent: "center" }}>
+
+<select ref={selectRef} onChange={() => searchByName("select")} style={{ width: "300px", height: "35px" }} className="form-select">
+  <option value="">all plants</option>
+  {options.map((item, i) => {
+    return (
+      <option key={i} value={item.value}>{item.label}</option>
+    )
+  })}
+
+</select>
+
+</Grid>
+        <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
           <Grid container style={{ justifyContent: "center" }}>
             <Grid xs={12} sm={10} item style={{}}>

@@ -1,7 +1,7 @@
 .addPlantDiv{
     position: fixed;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     background: #57b846;
     cursor: pointer;
     border-radius: 100px;
