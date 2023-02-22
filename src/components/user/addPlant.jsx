@@ -167,7 +167,7 @@ const AddPlant = (props) => {
 
   return (
 
-    <form onSubmit={handleSubmit(onSub)}>
+    <form style={{marginTop:"90px",marginBottom:"30px"}} onSubmit={handleSubmit(onSub)}>
 
       <Container className={styles.container}>
         <Box >

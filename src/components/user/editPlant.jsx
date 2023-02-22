@@ -2,7 +2,7 @@ import React from 'react'
 
 const EditPlant = () => {
   return (
-    <div>EditPlant</div>
+    <div style={{marginTop:"70px"}}>EditPlant</div>
   )
 }
 

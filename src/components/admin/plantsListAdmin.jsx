@@ -1,5 +1,4 @@
 import React from 'react'
-import CheckAdmin from './checkAdmin'
 import { useState ,useEffect} from 'react';
 import { API_URL,doApiGet } from '../../services/apiService';
 import { Container } from '@mui/material';

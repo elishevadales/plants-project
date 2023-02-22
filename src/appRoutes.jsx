@@ -47,7 +47,8 @@ const AppRoutes = () => {
             <Route path="/signUp" element={<SignUp />} />
           </Route>
           {/* Admin */}
-          <Route path="/admin" element={<LayoutAdmin />}>
+ 
+          <Route path="/admin" element={<><CheckAdmin/><LayoutAdmin /></>}>
             <Route path="/admin" element={<UsersListAdmin />} />
             <Route path="/admin/plantsList" element={<PlantsListAdmin />} />
             <Route path="/admin/myInfo" element={<MyInfo />} />
@@ -56,6 +57,7 @@ const AppRoutes = () => {
             <Route path="/admin/plantDetails" element={<PlantDetails role="admin"/>} />
           
           </Route>
+
 
           {/* User */}
           <Route path="/user" element={<LayoutUser />}>

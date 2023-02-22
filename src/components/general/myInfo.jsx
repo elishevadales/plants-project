@@ -47,7 +47,7 @@ const MyInfo = () => {
 
   useEffect(() => {
     doApi();
-    
+
 
   }, [])
 
@@ -61,7 +61,7 @@ const MyInfo = () => {
       console.log(resp.data);
       dispatch(updateUserInfo({
         update: resp.data
-        
+
       }))
 
 
@@ -92,7 +92,7 @@ const MyInfo = () => {
     console.clear();
     console.log(bodyData)
     doApiForm(bodyData);
-   
+
   }
 
   const onDelClick = async () => {
@@ -120,58 +120,61 @@ const MyInfo = () => {
 
   return (
     <Container >
-      
-      <div className={styles.container}>
+
+      <div style={{ marginTop: "100px", marginBottom: "30px" }} className={styles.container}>
 
 
-            <div className={styles.formDiv}>
-
-              <form onSubmit={handleSubmit(onSub)} className={styles.form}>
-                <label>Name:</label>
-                <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={myUserInfo?.user?.name}></input>
-                {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
-                <label>Email:</label>
-                <input className="form-control" disabled={myUserInfo?.user?.email} defaultValue={myUserInfo?.user?.email}></input>
-                <label>Date-Created</label>
-                <input className="form-control" disabled={myUserInfo?.user?.date_created} defaultValue={myUserInfo?.user?.date_created}></input>
-
-                <Box textAlign='center'>
-                  <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
-                </Box>
-
-              </form>
-
-
-              <div>
-
-                <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo.user.img_url_preview})`,backgroundPosition:"center" ,backgroundSize:"cover"}}></div>
-
-
-                <div style={{ display: "flex", justifyContent: "end" }}>
-                  <p onClick={handleOpen} className={styles.editBtn}><ModeEdit /></p>
-                  <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine /></p>
-                </div>
-
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-
-                  <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                      Edit profile photo
-                    </Typography>
-                    <AddAvatar handleClose={handleClose} doApi={doApi} />
-                  </Box>
+        <div className={styles.formDiv}>
 
 
 
-                </Modal>
-              </div>
+
+          <Grid sx={{display:"flex",flexDirection:"column", marginX:"50px",marginBottom:"30px"}}>
+            <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo.user.img_url_preview})`, backgroundPosition: "center", backgroundSize: "cover" }}>
             </div>
+
+
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <p onClick={handleOpen} className={styles.editBtn}><ModeEdit /></p>
+              <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine /></p>
+            </div>
+
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Edit profile photo
+                </Typography>
+                <AddAvatar handleClose={handleClose} doApi={doApi} />
+              </Box>
+
+
+
+            </Modal>
+          </Grid>
+          <Grid>
+            <form onSubmit={handleSubmit(onSub)} className={styles.form}>
+              <label>Name:</label>
+              <input className="form-control" {...register("name", { required: { value: true, message: 'first name is requried' }, minLength: { value: 3, message: "name must be at least 3 characters" } })} defaultValue={myUserInfo?.user?.name}></input>
+              {errors.name && errors.name.type == 'required' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+              {errors.name && errors.name.type == 'minLength' && <small style={{ color: "red" }} className='error'>{errors?.name?.message}</small>}
+              <label>Email:</label>
+              <input className="form-control" disabled={myUserInfo?.user?.email} defaultValue={myUserInfo?.user?.email}></input>
+              <label>Date-Created</label>
+              <input className="form-control" disabled={myUserInfo?.user?.date_created} defaultValue={myUserInfo?.user?.date_created}></input>
+
+              <Box textAlign='center'>
+                <Button style={{ background: "#57b846", color: "white", marginTop: "20px" }} type="submit">update details</Button>
+              </Box>
+
+            </form>
+          </Grid>
+        </div>
 
 
       </div>

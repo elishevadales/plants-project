@@ -19,7 +19,7 @@ export default function CheckAdminComp() {
       if(resp.data.role != "admin"){
         localStorage.removeItem(TOKEN_NAME);
         nav("/");
-        alert("You must be admin to be here ,try log in again");
+        alert("You are not an admin");
         
       }
       

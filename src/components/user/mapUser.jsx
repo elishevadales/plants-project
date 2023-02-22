@@ -131,20 +131,20 @@ const MapUser = (props) => {
 
   return (
     <div>
-      <div style={{ zIndex: 0 }}>
-      <Grid sx={{ padding: "20px", background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex", justifyContent: "center" }}>
+      <Grid style={{ zIndex: 0,marginBottom:"20px"}}>
+        <Grid sx={{ padding: "20px",paddingTop:{md:"90px",xs:"80px"}, background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex", justifyContent: "center" }}>
 
-<select ref={selectRef} onChange={() => searchByName("select")} style={{ width: "300px", height: "35px" }} className="form-select">
-  <option value="">all plants</option>
-  {options.map((item, i) => {
-    return (
-      <option key={i} value={item.value}>{item.label}</option>
-    )
-  })}
+          <select ref={selectRef} onChange={() => searchByName("select")} style={{ width: "300px", height: "35px" }} className="form-select">
+            <option value="">all plants</option>
+            {options.map((item, i) => {
+              return (
+                <option key={i} value={item.value}>{item.label}</option>
+              )
+            })}
 
-</select>
+          </select>
 
-</Grid>
+        </Grid>
         <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
           <Grid container style={{ justifyContent: "center" }}>
@@ -192,7 +192,7 @@ const MapUser = (props) => {
           </Grid>
 
         </Container>
-      </div>
+      </Grid>
 
 
 

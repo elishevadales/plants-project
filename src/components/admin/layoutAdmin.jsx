@@ -1,14 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import Footer from '../general/footer'
-import CheckAdmin from './checkAdmin'
+import CheckAdminComp from './checkAdmin'
 import HeaderAdmin from './headerAdmin'
 
 const LayoutAdmin = () => {
-  return (
+  const myUserInfo = useSelector((myStore) =>
+  myStore.userInfoSlice)
+
+  if(myUserInfo.role=="admin"){
+
+    return (
     <div>
         <header>
-          <CheckAdmin/>
             <HeaderAdmin/>
         </header>
 
@@ -21,6 +26,8 @@ const LayoutAdmin = () => {
         </footer>
     </div>
   )
+  }
+  
 }
 
 export default LayoutAdmin

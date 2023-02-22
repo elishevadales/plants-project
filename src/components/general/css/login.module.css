@@ -1,32 +1,35 @@
-.loginPage{
-    height: 100vh;
-}
+
 .form{
-    /* margin-top: 100px;
-    border: 2px solid #57b846; */
-    /* border-radius: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 70vh;
+    max-width: 300px;
 }
 
 .formDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 20px;
-    min-height: 50vh;
+    height: 400px;
     border-right: 2px solid #57b846;
-    margin-right: 30px;
-
 }
 
 .buttonDiv{
     display: flex;
     justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 .icons{
     display: flex;
-
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* width: 800px; */
+    padding: 30px;
 }
 .myIcon1{
     color: #57b846;
@@ -50,12 +53,7 @@
     border-radius: 15px;
 
 }
-.div{
-    text-align: center;
-    /* padding: 20px; */
-    margin: 20px;
-    margin-top: 90px;
-}
+
 
 .info{
     margin-top: 30px;

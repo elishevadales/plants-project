@@ -124,7 +124,7 @@ const PlantDetails = (props) => {
 
 
   return (
-    <Container sx={{ marginTop: "10px" }}>
+    <Container sx={{ marginTop: "80px" }}>
       <Card sx={{ marginTop: "20px" }}>
         <CardHeader
           sx={{ background: "#efefef", marginBottom: "20px" }}

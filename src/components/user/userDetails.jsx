@@ -31,61 +31,51 @@ const UserDetails = () => {
         setOpen(false);
     };
 
-const onClickPosts = () => {
-    nav(
-        '/user/userPosts', {
-        state
-      });
-}
+    const onClickPosts = () => {
+        nav(
+            '/user/userPosts', {
+            state
+        });
+    }
 
     return (
         <Container >
 
-            <Paper sx={{ padding: "80px", marginTop: "30px" }}>
+            <Paper sx={{ padding: "20px", marginTop: "100px", marginBottom: "30px" }}>
+                <Grid sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 
+                    <Grid onClick={handleClickOpen} sx={{ cursor: "pointer", backgroundImage: `url(${navigation.navigation.previewAvatar + state.img_url_preview})`, height: "200px", minWidth: "200px", margin: "20px", backgroundSize: "cover", borderRadius: "300px", border: "10px solid rgb(239, 239, 239)", display: "flex", justifyContent: "center", backgroundPosition: "center" }}>
+                    </Grid>
 
-                <Grid sx={{ display: "flex", justifyContent: "center" }}>
-
-                    <Grid sx={{ display: "flex",justifyContent:"center", flexDirection: "column" }}>
-                    <b>name:</b>
+                    <Grid sx={{ display: "flex", justifyContent: "center", flexDirection: "column",margin:"20px" }}>
+                        <b>name:</b>
                         <p>{state.name}</p>
                         <b>email:</b>
                         <p>{state.email}</p>
                         <b>here since:</b>
                         <p>{date}</p>
-
-
-
-
                     </Grid>
 
 
-                    
 
-                        <Grid onClick={handleClickOpen} sx={{ cursor: "pointer", backgroundImage: `url(${navigation.navigation.previewAvatar + state.img_url_preview})`, height: "200px", width: "200px", marginLeft: "40px", marginTop: "10px", backgroundSize: "cover", borderRadius: "300px", border: "10px solid rgb(239, 239, 239)",display:"flex",justifyContent:"center", backgroundPosition: "center" }}></Grid>
-
-
-                    
                 </Grid>
+
                 <Box textAlign='center'>
                     <Button onClick={onClickPosts} style={{ background: "#57b846", color: "white", marginTop: "20px" }}>
-                            show {state.name}'s posts
-                        </Button>
+                        show {state.name}'s posts
+                    </Button>
                 </Box>
-
             </Paper>
+
             <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-
             >
-
                 <DialogContent
-                    sx={{ width: "500px", height: "500px", backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center", backgroundImage: `url(${navigation.navigation.originalAvatar + state.img_url})` }}
+                    sx={{ width: {sm:"500px",xs:"250px"}, height: "500px", backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center", backgroundImage: `url(${navigation.navigation.originalAvatar + state.img_url})` }}
                 >
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>
@@ -93,6 +83,7 @@ const onClickPosts = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
         </Container>
     )
 }

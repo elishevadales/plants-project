@@ -3,7 +3,6 @@ import { useState,useEffect } from 'react';
 import React from 'react'
 import { API_URL, doApiGet } from '../../services/apiService';
 import UserItem from './userItem';
-import CheckAdmin from './checkAdmin'
 import styles from './css/usersListAdmin.module.css'
 
 

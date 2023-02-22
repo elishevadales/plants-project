@@ -11,6 +11,7 @@ import * as React from 'react';
 import { Puff } from 'react-loading-icons'
 import { styled } from '@mui/material/styles';
 import { IconButton, Input } from '@mui/material';
+import useLazy from '../../hooks/useLazy';
 
 
 
@@ -18,11 +19,19 @@ const HomeUser = () => {
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
+
+  //check if it is the first loading of thispage
+
   const selectRef = React.useRef();
   const inputRef = React.useRef();
+  const [endScreen, endScreenEnd, endEvent, addEvent, isEvent] = useLazy();
+  const [page, setPage] = useState(1);
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [endOfList, setEndOfList] = useState(false);
 
 
   useEffect(() => {
+
     if (!localStorage[TOKEN_NAME]) {
       nav("/")
     }
@@ -30,21 +39,60 @@ const HomeUser = () => {
       doApi();
       // doApiMap()
     }
+  }, [page])
 
-  }, [])
-
-  const doApi = async () => {
-    let url = API_URL + "/plants";
-    try {
-      let resp = await doApiGet(url);
-      console.log(resp.data.data);
-      setAr(resp.data.data);
-
-
+  useEffect(() => {
+    if (!firstLoad && endScreen) {
+      setPage(page + 1)
     }
-    catch (err) {
-      console.log(err);
-      alert("there is a problem ,try again later")
+    setFirstLoad(false)
+  }, [endScreen])
+
+
+
+  const doApi = async (ref) => {
+
+    if (ref == "input" && inputRef.current.value != "") {
+      if (isEvent == true) {
+      endEvent()
+      }
+
+      console.log("input is not empty")
+      searchByName(ref)
+    }
+
+    else if (ref == "select" && selectRef.current.value != "") {
+      if (isEvent == true) {
+      endEvent()
+      }
+
+      console.log("input is not empty")
+      searchByName(ref)
+    }
+
+    else {
+
+      let url = API_URL + `/plants?page=${page}`;
+
+      try {
+        addEvent();
+        let resp = await doApiGet(url);
+        console.log(resp.data.data)
+
+        if (resp.data.data.length < 3) {
+          setEndOfList(true)
+        }
+
+        setAr([...ar, ...resp.data.data]);
+        // setAr(resp.data.data);
+        endScreenEnd();
+
+      }
+      catch (err) {
+        console.log(err);
+        alert("there is a problem ,try again later")
+        nav("/")
+      }
     }
 
   }
@@ -75,20 +123,19 @@ const HomeUser = () => {
   }
 
   const searchByName = async (ref) => {
-
     let url;
     if (ref == "input") {
-      if (inputRef.current.value == "") {
-        doApi();
-      }
+      // if (inputRef.current.value == "") {
+      //   doApi();
+      // }
       url = API_URL + "/plants/searchByName?search=" + inputRef.current.value;
 
 
     }
     else if (ref == "select") {
-      if (selectRef.current.value == "") {
-        doApi();
-      }
+      // if (selectRef.current.value == "") {
+      //   doApi();
+      // }
       url = API_URL + "/plants/searchByName?search=" + selectRef.current.value;
 
 
@@ -102,6 +149,7 @@ const HomeUser = () => {
     catch (err) {
       console.log(err);
       alert("there is a problem ,try again later")
+      nav("/")
     }
 
 
@@ -110,9 +158,9 @@ const HomeUser = () => {
 
   return (
     <div>
-      <Grid sx={{ padding: "20px", background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex",flexWrap:"wrap",justifyContent:{xs:"space-around",sm:"center"} }}>
+      <Grid sx={{ paddingTop: "90px", paddingX: "20px", paddingBottom: "15px", background: "#57b846", borderRadius: { md: "0 0 10px 10px" }, marginBottom: "20px", display: "flex", flexWrap: "wrap", justifyContent: { xs: "space-around", sm: "center" } }}>
         <Grid sx={{ width: "200px" }}>
-          <input  ref={inputRef} onChange={() => searchByName("input")} id="form1" className="form-control" type="search" placeholder='free search...'></input>
+          <input ref={inputRef} onChange={() => doApi("input")} id="form1" className="form-control" type="search" placeholder='free search...'></input>
         </Grid>
         {/* <div className='input-group' style={{background:"red"}}>
           <div className='form-outline' style={{ display: "flex" }}>
@@ -122,8 +170,8 @@ const HomeUser = () => {
             <FaSearch />
           </button>
         </div> */}
-        <Grid  sx={{ width: "200px",marginLeft:{sm:"30px"} }}>
-          <select ref={selectRef} onChange={() => searchByName("select")} className="form-select">
+        <Grid sx={{ width: "200px", marginLeft: { sm: "30px" } }}>
+          <select ref={selectRef} onChange={() => doApi("select")} className="form-select">
             <option value="">all plants</option>
             {options.map((item, i) => {
               return (
@@ -139,15 +187,14 @@ const HomeUser = () => {
       <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
 
-        {ar.length == 0 ?
+        {/* {ar.length == 0 ?
           <div style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
 
             <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />
           </div>
-          // <h1>No matching items were found</h1>
 
           :
-          <></>}
+          <></>} */}
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 
           {ar.map((item, i) => {
@@ -157,10 +204,13 @@ const HomeUser = () => {
               <PlantItem key={item._id} index={i} item={item} />
             )
           })}
-        </div>
-        <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
+
 
         </div>
+        {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />}
+        <div className={btnStyles.addPlantDiv} onClick={onPlusBtn} />
+
+
 
 
       </Container>

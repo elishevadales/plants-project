@@ -94,8 +94,16 @@ const MyPlantItem = (props) => {
   }
 
 
-  const onClickItem = () => {
+  const onClickEdit = () => {
+    handleClose()
     nav("/user/editPlant")
+
+  }
+
+  
+  const onClickDelete = () => {
+    handleClose()
+    alert("deleted")
 
   }
 
@@ -108,7 +116,6 @@ const MyPlantItem = (props) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    onClickItem();
   };
 
   // end mui
@@ -146,8 +153,8 @@ const MyPlantItem = (props) => {
               }}
             >
               <Box>
-                <MenuItem onClick={handleClose}>edit</MenuItem>
-                <MenuItem onClick={handleClose}>delete</MenuItem>
+                <MenuItem onClick={onClickEdit}>edit</MenuItem>
+                <MenuItem onClick={onClickDelete}>delete</MenuItem>
               </Box>
             </Menu>
           </div>
@@ -167,7 +174,7 @@ const MyPlantItem = (props) => {
           },
           cursor: "pointer"
         }}
-        onClick={onClickItem}
+        onClick={onClickEdit}
         component="img"
         // height="500"
         image={navigation.navigation.previewPlant + props.item.img_url_preview}

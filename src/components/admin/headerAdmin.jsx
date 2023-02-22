@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { GiCottonFlower } from 'react-icons/gi';
 import { Button } from '@mui/material';
 import ConfirmButton from '../general/confirmButton';
-import CheckAdmin from './checkAdmin'
+
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserInfo } from '../../reducer/userInfoSlice';
 import AppBar from '@mui/material/AppBar';
@@ -19,6 +19,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+
 
 
 const HeaderAdmin = () => {
@@ -83,6 +84,7 @@ const HeaderAdmin = () => {
   const onClickLogo = () => {
     nav("/admin/plantsList");
   }
+console.log(myUserInfo)
 
   return (
     <div>
@@ -297,6 +299,8 @@ const HeaderAdmin = () => {
 
     </div>
   )
+
+  
 }
 
 export default HeaderAdmin

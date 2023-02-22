@@ -64,7 +64,6 @@ const HeaderUser = () => {
     let url = API_URL + "/users/myInfo";
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
       dispatch(updateUserInfo({
         update: resp.data
 
@@ -84,7 +83,6 @@ const HeaderUser = () => {
     let url = API_URL + "/upload/navigation";
     try{
       let resp = await doApiGet(url);
-      console.log(resp.data);
       dispatch(updateNavigation({
         update: resp.data
 
@@ -107,7 +105,7 @@ const HeaderUser = () => {
 
   return (
     <div>
-      <AppBar sx={{ background: "#efefef" }} position="static">
+      <AppBar sx={{ background: "#efefef" }} position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
 
