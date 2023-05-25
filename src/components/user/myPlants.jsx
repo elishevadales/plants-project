@@ -9,14 +9,14 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { API_URL, doApiGet, TOKEN_NAME } from '../../services/apiService';
 import { Puff } from 'react-loading-icons'
-import useLazy from '../../hooks/useLazy';
+// import useLazy from '../../hooks/useLazy';
 
 
 const MyPlants = () => {
 
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
-  const [endScreen, endScreenEnd] = useLazy()
+  // const [endScreen, endScreenEnd] = useLazy()
   const [page, setPage] = useState(1);
   const [firstLoad, setFirstLoad] = useState(true);
   const [endOfList, setEndOfList] = useState(false);
@@ -34,13 +34,13 @@ const MyPlants = () => {
 
   }, [page])
 
-  useEffect(() => {
-    console.log(endScreen)
-    if (!firstLoad && endScreen) {
-      setPage(page + 1)
-    }
-    setFirstLoad(false)
-  }, [endScreen])
+  // useEffect(() => {
+  //   console.log(endScreen)
+  //   if (!firstLoad && endScreen) {
+  //     setPage(page + 1)
+  //   }
+  //   setFirstLoad(false)
+  // }, [endScreen])
 
   const doApi = async () => {
 
@@ -54,7 +54,7 @@ const MyPlants = () => {
         setEndOfList(true)
       }
       setAr([...ar, ...resp.data]);
-      endScreenEnd();
+      // endScreenEnd();
 
     }
     catch (err) {
@@ -93,7 +93,7 @@ const MyPlants = () => {
       </div>
       <br></br>
       <div style={{display:"flex",justifyContent:"center"}}>
-              {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />}
+              {/* {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />} */}
       </div>
 
 

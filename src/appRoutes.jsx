@@ -46,7 +46,6 @@ const AppRoutes = () => {
             <Route path="/" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
           </Route>
-          {/* Admin */}
  
           <Route path="/admin" element={<><CheckAdmin/><LayoutAdmin /></>}>
             <Route path="/admin" element={<UsersListAdmin />} />
@@ -55,13 +54,10 @@ const AppRoutes = () => {
             <Route path="/admin/map" element={<MapUser  role="admin"/>} />
             <Route path="/admin/newPlant" element={<AddPlant role="admin"/>} />
             <Route path="/admin/plantDetails" element={<PlantDetails role="admin"/>} />
-          
           </Route>
 
 
-          {/* User */}
           <Route path="/user" element={<LayoutUser />}>
-          
             <Route path="/user" element={<HomeUser />} />
             <Route path="/user/map" element={<MapUser   role="user" />} />
             <Route path="/user/myPlants" element={<MyPlants />} />
@@ -71,7 +67,6 @@ const AppRoutes = () => {
             <Route path="/user/userDetails" element={<UserDetails />} />
             <Route path="/user/editPlant" element={<EditPlant />} />
             <Route path="/user/userPosts" element={<UserPosts />} />
-            
           </Route>
 
         </Routes>

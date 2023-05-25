@@ -64,6 +64,7 @@ const HeaderUser = () => {
     let url = API_URL + "/users/myInfo";
     try {
       let resp = await doApiGet(url);
+      console.log(resp.data)
       dispatch(updateUserInfo({
         update: resp.data
 

@@ -18,7 +18,9 @@ import { useSelector, useDispatch } from 'react-redux';
 const Login = () => {
 
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  
   const onSub = async (bodyData) => {
     console.log(bodyData);
     await doApiForm(bodyData);
@@ -49,7 +51,12 @@ const Login = () => {
         nav("/")
       }
       else if (resp.data.role == "admin") {
-        console.clear();
+        console.log("you loged in as an admin")
+
+        dispatch(updateUserInfo({
+          update: resp.data
+        }))
+        
         nav("/admin/plantsList")
       }
       else {

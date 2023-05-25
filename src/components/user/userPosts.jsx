@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { API_URL, doApiGet, doApiMethod, TOKEN_NAME } from '../../services/apiService';
 import { useSelector } from 'react-redux';
 import { Puff } from 'react-loading-icons'
-import useLazy from '../../hooks/useLazy';
+// import useLazy from '../../hooks/useLazy';
 
 
 
@@ -21,7 +21,7 @@ const UserPosts = () => {
   const { state } = useLocation();
   const nav = useNavigate();
   const [ar, setAr] = useState([]);
-  const [endScreen, endScreenEnd] = useLazy()
+  // const [endScreen, endScreenEnd] = useLazy()
   const [page, setPage] = useState(1);
   const [firstLoad, setFirstLoad] = useState(true);
   const [endOfList, setEndOfList] = useState(false);
@@ -39,12 +39,12 @@ const UserPosts = () => {
 
   }, [page])
 
-  useEffect(() => {
-    if (!firstLoad && endScreen) {
-      setPage(page + 1)
-    }
-    setFirstLoad(false)
-  }, [endScreen])
+  // useEffect(() => {
+  //   if (!firstLoad && endScreen) {
+  //     setPage(page + 1)
+  //   }
+  //   setFirstLoad(false)
+  // }, [endScreen])
 
   const doApi = async () => {
     let url = API_URL + "/plants/userplants/" + userId + `?page=${page}`;
@@ -56,7 +56,7 @@ const UserPosts = () => {
         setEndOfList(true)
       }
       setAr([...ar, ...resp.data]);
-      endScreenEnd();
+      // endScreenEnd();
     }
     catch (err) {
       console.log(err.response);
@@ -94,7 +94,7 @@ const UserPosts = () => {
         <br></br>
 
       </div>
-      {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />}
+      {/* {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />} */}
 
       <div className={btnStyles.addPlantDiv} onClick={onPlusBtn}>
 

@@ -4,7 +4,6 @@ import axios from "axios";
 
 export const API_URL = "http://localhost:3003"
 // export const API_URL = "https://muddy-pajamas-toad.cyclic.app"
-// export const API_URL = "https://monkeys.co.il"
 export const TOKEN_NAME = "PLANTS_TOKEN"
 
 export const doApiGet = async(_url) => {

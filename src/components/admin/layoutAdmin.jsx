@@ -7,27 +7,31 @@ import HeaderAdmin from './headerAdmin'
 
 const LayoutAdmin = () => {
   const myUserInfo = useSelector((myStore) =>
-  myStore.userInfoSlice)
+    myStore.userInfoSlice)
 
-  if(myUserInfo.role=="admin"){
+  if (myUserInfo.user.role == "admin") {
 
     return (
-    <div>
+      <div>
         <header>
-            <HeaderAdmin/>
+          <HeaderAdmin />
         </header>
 
         <main>
-          <Outlet/>
+          <Outlet />
         </main>
-        
+
         <footer>
-            <Footer background={"rgb(170, 249, 255)"} color={"black"}/>
+          <Footer background={"rgb(170, 249, 255)"} color={"black"} />
         </footer>
-    </div>
-  )
+      </div>
+    )
   }
-  
+  else {
+    alert("your role is not admin or undefined")
+    console.log("bug")
+  }
+
 }
 
 export default LayoutAdmin

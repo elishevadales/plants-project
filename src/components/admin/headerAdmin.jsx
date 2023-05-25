@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { GiCottonFlower } from 'react-icons/gi';
 import { Button } from '@mui/material';
 import ConfirmButton from '../general/confirmButton';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserInfo } from '../../reducer/userInfoSlice';
 import AppBar from '@mui/material/AppBar';
@@ -52,7 +51,7 @@ const HeaderAdmin = () => {
   React.useEffect(() => {
 
     doApi();
-
+    console.log("this is the admin header")
 
   }, [])
 
@@ -84,7 +83,7 @@ const HeaderAdmin = () => {
   const onClickLogo = () => {
     nav("/admin/plantsList");
   }
-console.log(myUserInfo)
+  console.log(myUserInfo)
 
   return (
     <div>
@@ -186,7 +185,7 @@ console.log(myUserInfo)
               variant="h5"
               noWrap
               component={'span'}
-              
+
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -281,12 +280,12 @@ console.log(myUserInfo)
                       <Typography textAlign="center">Profile</Typography>
                     </MenuItem>
                   </Link>
-                  <Box style={{ padding: "10px"}}>
+                  <Box style={{ padding: "10px" }}>
                     <ConfirmButton
                       btnText="Log-out"
                       boxText="Are you sure you want to log-out?"
                       agree={onClick}
-                      style={{ background: "#57b846", width: "130px", height: "40px", color: "white"  }}
+                      style={{ background: "#57b846", width: "130px", height: "40px", color: "white" }}
                     />
                   </Box>
                 </Box>
@@ -300,7 +299,7 @@ console.log(myUserInfo)
     </div>
   )
 
-  
+
 }
 
 export default HeaderAdmin

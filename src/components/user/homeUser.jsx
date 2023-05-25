@@ -11,7 +11,7 @@ import * as React from 'react';
 import { Puff } from 'react-loading-icons'
 import { styled } from '@mui/material/styles';
 import { IconButton, Input } from '@mui/material';
-import useLazy from '../../hooks/useLazy';
+// import useLazy from '../../hooks/useLazy';
 
 
 
@@ -24,7 +24,7 @@ const HomeUser = () => {
 
   const selectRef = React.useRef();
   const inputRef = React.useRef();
-  const [endScreen, endScreenEnd, endEvent, addEvent, isEvent] = useLazy();
+  // const [endScreen, endScreenEnd, endEvent, addEvent, isEvent] = useLazy();
   const [page, setPage] = useState(1);
   const [firstLoad, setFirstLoad] = useState(true);
   const [endOfList, setEndOfList] = useState(false);
@@ -39,32 +39,33 @@ const HomeUser = () => {
       doApi();
       // doApiMap()
     }
-  }, [page])
+  // }, [page])
+  }, [])
 
-  useEffect(() => {
-    if (!firstLoad && endScreen) {
-      setPage(page + 1)
-    }
-    setFirstLoad(false)
-  }, [endScreen])
+  // useEffect(() => {
+  //   if (!firstLoad && endScreen) {
+  //     setPage(page + 1)
+  //   }
+  //   setFirstLoad(false)
+  // }, [endScreen])
 
 
 
   const doApi = async (ref) => {
 
     if (ref == "input" && inputRef.current.value != "") {
-      if (isEvent == true) {
-      endEvent()
-      }
+      // if (isEvent == true) {
+      // endEvent()
+      // }
 
       console.log("input is not empty")
       searchByName(ref)
     }
 
     else if (ref == "select" && selectRef.current.value != "") {
-      if (isEvent == true) {
-      endEvent()
-      }
+      // if (isEvent == true) {
+      // endEvent()
+      // }
 
       console.log("input is not empty")
       searchByName(ref)
@@ -75,7 +76,7 @@ const HomeUser = () => {
       let url = API_URL + `/plants?page=${page}`;
 
       try {
-        addEvent();
+        // addEvent();
         let resp = await doApiGet(url);
         console.log(resp.data.data)
 
@@ -85,7 +86,7 @@ const HomeUser = () => {
 
         setAr([...ar, ...resp.data.data]);
         // setAr(resp.data.data);
-        endScreenEnd();
+        // endScreenEnd();
 
       }
       catch (err) {
@@ -207,7 +208,7 @@ const HomeUser = () => {
 
 
         </div>
-        {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />}
+        {/* {endScreen && !endOfList && <Puff style={{ width: "150px", height: "150px" }} stroke="#57b846" />} */}
         <div className={btnStyles.addPlantDiv} onClick={onPlusBtn} />
 
 
