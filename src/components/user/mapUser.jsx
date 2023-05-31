@@ -65,7 +65,7 @@ const MapUser = (props) => {
   }
 
   const doApi = async () => {
-    let url = API_URL + "/plants";
+    let url = API_URL + "/plants/plantsListMap";
     try {
       let resp = await doApiGet(url);
       console.log(resp.data.data);
