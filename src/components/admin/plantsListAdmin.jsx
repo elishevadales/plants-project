@@ -51,6 +51,7 @@ const PlantsListAdmin = () => {
             {/* <th>Coments</th> */}
             <th>Active</th>
             <th>Date-created</th>
+            <th>Time</th>
             <th>UserId</th>
             <th>User Name</th>
             <th>Edit/Del</th>

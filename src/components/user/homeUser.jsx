@@ -37,12 +37,15 @@ const HomeUser = () => {
       nav("/")
     }
     else {
+
       doApi();
 
     }
   }, [page])
 
+
   useEffect(() => {
+
     if (!firstLoad && endScreen) {
       setPage(page + 1)
     }

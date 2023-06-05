@@ -69,8 +69,6 @@ const UserItem = (props) => {
                 console.log(err.response);
                 alert("There is a problem, or you are trying to delete superAdmin");
             }
-        
-
     }
 
     return (
@@ -78,6 +76,7 @@ const UserItem = (props) => {
 
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
+            <td>{item._id}</td>
             <td>{item.email}</td>
             <td><img src={item.img_url_preview} height="60" alt="pic"/></td>
             <td>{date}</td>

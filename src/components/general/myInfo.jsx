@@ -106,9 +106,6 @@ const MyInfo = () => {
         console.log(resp.data);
         alert("profile image wad deleted")
         doApi();
-
-
-
       }
       catch (err) {
         console.log(err);
@@ -122,39 +119,26 @@ const MyInfo = () => {
     <Container >
 
       <div style={{ marginTop: "100px", marginBottom: "30px" }} className={styles.container}>
-
-
         <div className={styles.formDiv}>
-
-
-
-
-          <Grid sx={{display:"flex",flexDirection:"column", marginX:"50px",marginBottom:"30px"}}>
+          <Grid sx={{ display: "flex", flexDirection: "column", marginX: "50px", marginBottom: "30px" }}>
             <div className={styles.imgDiv} style={{ backgroundImage: `url(${myUserInfo.user.img_url_preview})`, backgroundPosition: "center", backgroundSize: "cover" }}>
             </div>
-
-
             <div style={{ display: "flex", justifyContent: "end" }}>
               <p onClick={handleOpen} className={styles.editBtn}><ModeEdit /></p>
               <p onClick={onDelClick} className={styles.editBtn}><RiDeleteBinLine /></p>
             </div>
-
             <Modal
               open={open}
               onClose={handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-
               <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Edit profile photo
                 </Typography>
                 <AddAvatar handleClose={handleClose} doApi={doApi} />
               </Box>
-
-
-
             </Modal>
           </Grid>
           <Grid>

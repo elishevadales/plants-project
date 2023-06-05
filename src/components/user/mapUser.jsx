@@ -38,7 +38,7 @@ const MapUser = (props) => {
   })
 
   useEffect(() => {
-
+    window.scrollTo(0, 0);
     doApi();
     doApiMyInfo();
 

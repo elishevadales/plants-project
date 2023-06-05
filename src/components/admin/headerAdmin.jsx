@@ -25,6 +25,7 @@ const HeaderAdmin = () => {
   //mui
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const address = window.location.pathname
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -148,27 +149,27 @@ const HeaderAdmin = () => {
               >
                 <Box>
                   <Link to="/admin/plantsList">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseNavMenu} sx={{background:address=="/admin/plantsList"? '#57b84680':''}}>
                       <Typography textAlign="center">Plants</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/admin">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseNavMenu} sx={{background:address=="/admin"? '#57b84680':''}}>
                       <Typography textAlign="center">Users</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/admin/myInfo">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseNavMenu} sx={{background:address=="/admin/myInfo"? '#57b84680':''}}>
                       <Typography textAlign="center">Profile</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/admin/map">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseNavMenu} sx={{background:address=="/admin/map"? '#57b84680':''}}>
                       <Typography textAlign="center">Map</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/admin/newPlant">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseNavMenu} sx={{background:address=="/admin/newPlant"? '#57b84680':''}}>
                       <Typography textAlign="center">Add-plant</Typography>
                     </MenuItem>
                   </Link>
@@ -206,7 +207,7 @@ const HeaderAdmin = () => {
               <Link to="/admin/plantsList">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2,color:"black",borderRadius:"10px", background: address=="/admin/plantsList"? '#57b84680':'', display: 'block' }}
                 >
                   Plants
                 </Button>
@@ -214,7 +215,7 @@ const HeaderAdmin = () => {
               <Link to="/admin">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: 'black', display: 'block',borderRadius:"10px", background: address=="/admin"? '#57b84680':'' }}
                 >
                   Users
                 </Button>
@@ -222,7 +223,7 @@ const HeaderAdmin = () => {
               <Link to="/admin/myInfo">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: 'black', display: 'block',borderRadius:"10px", background: address=="/admin/myInfo"? '#57b84680':'' }}
                 >
                   Profile
                 </Button>
@@ -230,7 +231,7 @@ const HeaderAdmin = () => {
               <Link to="/admin/map">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: 'black', display: 'block',borderRadius:"10px", background: address=="/admin/map"? '#57b84680':'' }}
                 >
                   Map
                 </Button>
@@ -238,7 +239,7 @@ const HeaderAdmin = () => {
               <Link to="/admin/newPlant">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: 'black', display: 'block',borderRadius:"10px", background: address=="/admin/newPlant"? '#57b84680':'' }}
                 >
                   Add-plant
                 </Button>

@@ -29,6 +29,7 @@ const PlantItem = (props) => {
 
     let item = props.item;
     let date = item.date_created.slice(8, 10) + "/" + item.date_created.slice(5, 7) + "/" + item.date_created.slice(0, 4);
+    let time = item.date_created.slice(11, 16);
     
     
     const onClickItemAdmin = (item) => {
@@ -58,6 +59,7 @@ const PlantItem = (props) => {
             {/* <td>{item.comments} </td> */}
             <td>{String(item.active)} </td>
             <td>{date} </td>
+            <td>{time} </td>
             <td>{item.user_id._id} </td>
             <td>{item.user_id.name} </td>
 

@@ -40,6 +40,7 @@ const ExpandMore = styled((props) => {
 const MyPlantItem = (props) => {
   const nav = useNavigate();
   const date = props.item.date_created.slice(8, 10) + "/" + props.item.date_created.slice(5, 7) + "/" + props.item.date_created.slice(0, 4);
+  const time = props.item.date_created.slice(11, 16);
   const myUserInfo = useSelector((myStore) =>
     myStore.userInfoSlice)
   let userId = myUserInfo.user._id;
@@ -160,7 +161,7 @@ const MyPlantItem = (props) => {
           </div>
         }
         title={props.item.user_id.name}
-        subheader={date}
+        subheader={date+"  ,  " + time}
       >
 
       </CardHeader>

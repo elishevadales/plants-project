@@ -30,6 +30,7 @@ const AddPlant = (props) => {
   Geocode.enableDebug();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!localStorage[TOKEN_NAME]) {
       nav("/")
     }

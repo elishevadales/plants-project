@@ -40,6 +40,7 @@ const UsersListAdmin = () => {
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>_Id</th>
             <th>Email</th>
             <th>Img-URL</th>
             <th>Date-created</th>
