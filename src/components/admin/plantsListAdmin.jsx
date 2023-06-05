@@ -10,6 +10,7 @@ const PlantsListAdmin = () => {
 
   const [ar, setAr] = useState([]);
   const [querys] = useSearchParams();
+  const perPage = 7;
 
   useEffect(() => {
     doApi();
@@ -19,7 +20,7 @@ const PlantsListAdmin = () => {
     
     //?page= איסוף
     let page = querys.get("page") || 1;
-    let url = API_URL + "/plants/?page="+page;
+    let url = API_URL + "/plants/?page="+page +"&perPage="+perPage;
     try {
       console.clear()
       let resp = await doApiGet(url);
@@ -37,7 +38,7 @@ const PlantsListAdmin = () => {
       <Container>
 
       <h1>List of plants</h1>
-      <PageNav urlPageApi={API_URL+"/plants/count"} perPage={5} navToDir="/admin/plantsList?page=" cssClass="btn btn-info ms-2"  />
+      <PageNav urlPageApi={API_URL+"/plants/count"} perPage={perPage} navToDir="/admin/plantsList?page=" cssClass="btn btn-info ms-2"  />
       <table className='table table-striped table-hover'>
         <thead>
           <tr>

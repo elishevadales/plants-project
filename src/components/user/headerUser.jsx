@@ -27,6 +27,7 @@ const HeaderUser = () => {
   //mui
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const address = window.location.pathname
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -168,22 +169,22 @@ const HeaderUser = () => {
               >
                 <Box>
                   <Link to="/user">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem sx={{background:address=="/user"? '#57b84680':''}} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">Home</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/user/map">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem sx={{background:address=="/user/map"? '#57b84680':''}} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">Map</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/user/myPlants">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem sx={{background:address=="/user/myPlants"? '#57b84680':''}} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">My-plants</Typography>
                     </MenuItem>
                   </Link>
                   <Link to="/user/newPlant">
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem sx={{background:address=="/user/newPlant"? '#57b84680':''}} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">Add-plant</Typography>
                     </MenuItem>
                   </Link>
@@ -221,7 +222,7 @@ const HeaderUser = () => {
               <Link to="/user">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: address=="/user"? '#57b846':'black', display: 'block' }}
                 >
                   Home
                 </Button>
@@ -229,7 +230,7 @@ const HeaderUser = () => {
               <Link to="/user/map">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: address=="/user/map"? '#57b846':'black', display: 'block' }}
                 >
                   Map
                 </Button>
@@ -237,7 +238,7 @@ const HeaderUser = () => {
               <Link to="/user/myPlants">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: address=="/user/myPlants"? '#57b846':'black', display: 'block' }}
                 >
                   My-plants
                 </Button>
@@ -245,7 +246,7 @@ const HeaderUser = () => {
               <Link to="/user/newPlant">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: address=="/user/newPlant"? '#57b846':'black', display: 'block' }}
                 >
                   Add-plant
                 </Button>
@@ -308,6 +309,7 @@ const HeaderUser = () => {
           </Toolbar>
         </Container>
       </AppBar>
+
     </div>
 
   )

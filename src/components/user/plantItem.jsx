@@ -50,6 +50,7 @@ const PlantItem = (props) => {
   const [likesCount, setlikesCount] = useState(props.item.likes)
   const [expanded, setExpanded] = React.useState(false);
   const date = props.item.date_created.slice(8, 10) + "/" + props.item.date_created.slice(5, 7) + "/" + props.item.date_created.slice(0, 4);
+  const time = props.item.date_created.slice(11, 16);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -141,7 +142,7 @@ const PlantItem = (props) => {
           <span onClick={onClickUser} onMouseEnter={handleHover} onMouseLeave={handleOverLeave} style={{ cursor: "pointer", textDecoration: isHover ? "underLine" : "none" }}>{props.item.user_id.name}</span>}
         subheader={
           <>
-          <span>{date}</span> <br/>
+          <span>{date} ,  {time}</span> <br/>
           <span>{props.item.location}</span></>
            
         }

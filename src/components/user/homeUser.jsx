@@ -23,10 +23,12 @@ const HomeUser = () => {
 
   const selectRef = React.useRef();
   const inputRef = React.useRef();
-  const [endScreen, endScreenEnd, endEvent, addEvent, isEvent] = useScroll();
+  const [endScreen, endScreenEnd] = useScroll();
   const [page, setPage] = useState(1);
   const [firstLoad, setFirstLoad] = useState(true);
   const [endOfList, setEndOfList] = useState(false);
+  const perPage = 3;
+
 
 
   useEffect(() => {
@@ -61,13 +63,13 @@ const HomeUser = () => {
 
   const doApi = async (ref) => {
 
-    let url = API_URL + `/plants?page=${page}`;
+    let url = API_URL + `/plants?page=${page}&perPage=${perPage}`;
 
     try {
       let resp = await doApiGet(url);
       console.log(resp.data.data)
 
-      if (resp.data.data.length < 3) {
+      if (resp.data.data.length < perPage) {
         setEndOfList(true)
       }
 
@@ -160,7 +162,7 @@ const HomeUser = () => {
 
             return (
 
-              <PlantItem key={item._id} index={i} item={item} />
+              <PlantItem key={i} index={i} item={item} />
             )
           })}
 
